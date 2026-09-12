@@ -32,8 +32,8 @@ export const interview: Msg[] = [
   { who: 'me', html: 'Both. <b>Expedia</b>: shipped a debugging framework their Android engineers adopted, cut debug effort 99%. <b>Siemens Energy</b>: 2.5M sensor rows → 92% classifier. <b>Orca</b> (67.3K★): merged PRs into a remote browser runtime. Also worked with <b>Agnikul Cosmos</b> and <b>DRDO</b>. Those projects stay off this page. Plus 2 hackathon wins.' },
   { who: 'ai', html: 'Biggest failure?' },
   { who: 'me', html: 'First version of me, of you, interrupted people constantly. I optimised for speed, not for listening. Rewrote the turn detection twice. <b>Latency is a product decision.</b>' },
-  { who: 'ai', html: 'Why should someone hire you remotely from India?' },
-  { who: 'me', html: "3K+ commits say I show up. $3,000 from Fetch.ai says I win when it counts. Overlap with US/EU hours is fine. <b>I'm the guy already awake when your deploy breaks.</b>" },
+  { who: 'ai', html: 'Why should someone hire you?' },
+  { who: 'me', html: "3K+ commits say I show up. $3,000 from Fetch.ai says I win when it counts. I ship end to end and I stay on the problem until it works." },
   { who: 'ai', html: 'Verdict: <b class="hl">strong hire</b>. Also please fix my interruption bug.' },
 ]
 

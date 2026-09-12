@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { motion } from 'motion/react'
 import { stickers } from '../data'
+import portrait from '../assets/portrait.jpg'
 
 /* Draggable sticker pile. Motion handles pointer capture + momentum on the compositor. */
 export function Stickers() {
@@ -19,7 +20,7 @@ export function Stickers() {
     <div className="cluster" ref={bounds}>
       <motion.div className="polaroid" data-cur="drag" style={{ rotate: -7 }} {...drag} initial={{ opacity: 0, y: 40, rotate: -14 }} animate={{ opacity: 1, y: 0, rotate: -7 }}>
         <div className="img">
-          <img src="/portrait.jpg" alt="Avichal Dwivedi" />
+          <img src={portrait} alt="Avichal Dwivedi" />
         </div>
         <div className="cap">avichal, 2026 ✌</div>
       </motion.div>

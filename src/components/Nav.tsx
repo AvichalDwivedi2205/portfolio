@@ -17,7 +17,6 @@ export function Nav({ onSecret }: { onSecret: () => void }) {
           <a href="#research">Lab notes</a>
           <a href="#xp">Receipts</a>
           <a href="#contact">Contact</a>
-          <a href="#contact" className="pill"><i />open to remote work</a>
         </div>
       </div>
     </nav>

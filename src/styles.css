@@ -35,9 +35,6 @@ nav .wrap{display:flex;justify-content:space-between;align-items:center;height:6
 .navlinks{display:flex;gap:6px;align-items:center}
 .navlinks a{padding:8px 14px;border-radius:999px;color:var(--fg2);font-weight:500;transition:background .2s,color .2s,transform .2s}
 .navlinks a:hover{background:var(--fg);color:var(--bg);transform:rotate(-2deg)}
-.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1.5px solid var(--lime);border-radius:999px;color:var(--lime)!important;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
-.pill:hover{background:var(--lime)!important;color:var(--bg)!important}
-.pill i{width:7px;height:7px;border-radius:50%;background:currentColor;animation:blink 1.4s infinite}
 @keyframes blink{50%{opacity:.15}}
 
 /* HERO */
@@ -50,9 +47,10 @@ h1{font-size:clamp(52px,8.4vw,124px)}
 h1 .w{display:inline-block;transition:transform .35s cubic-bezier(.34,1.56,.64,1),color .2s;will-change:transform}
 h1 .w:hover{transform:translateY(-8px) rotate(-3deg);color:var(--lime)}
 h1 .scr{color:var(--lime);display:inline-grid;position:relative;white-space:nowrap;vertical-align:top}
-h1 .scr>*{grid-area:1/1}
+h1 .scr-ghost,h1 .scr-mask{grid-area:1/1}
 h1 .scr-ghost{visibility:hidden}
-h1 .scr-word{display:block;position:relative;width:max-content;will-change:transform,opacity}
+h1 .scr-mask{display:block;overflow:hidden;line-height:1.05}
+h1 .scr-word{display:block;position:relative;width:max-content;will-change:transform}
 h1 .scr-word::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:6px;background:var(--pink);z-index:-1;transform:skewX(-12deg)}
 .sub{margin-top:28px;font-size:20px;color:var(--fg2);max-width:52ch}
 .sub b{color:var(--fg);font-weight:500;background:linear-gradient(transparent 60%,rgba(200,255,61,.35) 60%)}
@@ -235,7 +233,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .cluster{height:420px;margin-top:20px}
   .polaroid{width:200px}
   .stk{font-size:19px;padding:12px 14px}
-  .navlinks a:not(.pill){display:none}
+  .navlinks a{padding:6px 8px;font-size:14px}
   .work{grid-template-columns:1fr}
   .proj.big{grid-column:span 1;grid-template-columns:1fr}
   .takes{grid-template-columns:1fr}

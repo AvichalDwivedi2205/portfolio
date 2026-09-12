@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useReducedMotion } from '../hooks'
 
-const wipe = [0.76, 0, 0.24, 1] as const
-
-/* Ticker wipe: outgoing word exits up, incoming enters from below, both clipped to the line. */
-export function WordSwap({ words, interval = 2800 }: { words: string[]; interval?: number }) {
+/* Cycles words with a quiet fade + slide. Width locked to the longest word so layout never jumps. */
+export function WordSwap({ words, interval = 2600 }: { words: string[]; interval?: number }) {
   const [i, setI] = useState(0)
   const reduce = useReducedMotion()
 
@@ -20,20 +18,18 @@ export function WordSwap({ words, interval = 2800 }: { words: string[]; interval
   return (
     <span className="scr">
       <span className="scr-ghost" aria-hidden>{longest}</span>
-      <span className="scr-mask">
-        <AnimatePresence initial={false}>
-          <motion.span
-            key={words[i]}
-            className="scr-word"
-            initial={reduce ? false : { y: '115%' }}
-            animate={{ y: '0%' }}
-            exit={{ y: '-115%' }}
-            transition={{ duration: 0.55, ease: wipe }}
-          >
-            {words[i]}
-          </motion.span>
-        </AnimatePresence>
-      </span>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={words[i]}
+          className="scr-word"
+          initial={reduce ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.28, ease: [0.2, 0.8, 0.2, 1] }}
+        >
+          {words[i]}
+        </motion.span>
+      </AnimatePresence>
     </span>
   )
 }

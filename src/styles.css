@@ -47,10 +47,9 @@ h1{font-size:clamp(52px,8.4vw,124px)}
 h1 .w{display:inline-block;transition:transform .35s cubic-bezier(.34,1.56,.64,1),color .2s;will-change:transform}
 h1 .w:hover{transform:translateY(-8px) rotate(-3deg);color:var(--lime)}
 h1 .scr{color:var(--lime);display:inline-grid;position:relative;white-space:nowrap;vertical-align:top}
-h1 .scr-ghost,h1 .scr-mask{grid-area:1/1}
+h1 .scr>*{grid-area:1/1}
 h1 .scr-ghost{visibility:hidden}
-h1 .scr-mask{display:block;overflow:hidden;line-height:1.05}
-h1 .scr-word{display:block;position:relative;width:max-content;will-change:transform}
+h1 .scr-word{display:block;position:relative;width:max-content;will-change:transform,opacity}
 h1 .scr-word::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:6px;background:var(--pink);z-index:-1;transform:skewX(-12deg)}
 .sub{margin-top:28px;font-size:20px;color:var(--fg2);max-width:52ch}
 .sub b{color:var(--fg);font-weight:500;background:linear-gradient(transparent 60%,rgba(200,255,61,.35) 60%)}
@@ -171,9 +170,9 @@ h2 .ch{display:inline-block;will-change:transform}
 .rrow:hover .rbadge{transform:rotate(-2deg) scale(1.08)}
 
 /* Awards */
-.awards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:28px}
+.awards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:28px}
 .award{border:2px solid var(--fg);border-radius:18px;background:var(--bg2);will-change:transform}
-.award-in{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:22px;align-items:start;color:inherit}
+.award-in{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:28px 32px;align-items:start;color:inherit}
 .trophy{font-size:28px;line-height:1}
 .an{font-family:var(--disp);font-weight:800;font-size:20px;letter-spacing:-.03em;line-height:1.1}
 .ad{color:var(--fg3);font-size:13px;margin-top:6px}

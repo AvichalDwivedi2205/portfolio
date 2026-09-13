@@ -207,6 +207,7 @@ h2 .ch{display:inline-block;will-change:transform}
 .face.back .flip{color:var(--bg)}
 
 /* XP */
+#xp{padding-top:72px}
 .xp{border-top:2px solid var(--fg)}
 .xrow{display:grid;grid-template-columns:160px 1fr auto;gap:28px;align-items:center;padding:26px 0;border-bottom:1px solid var(--line);will-change:transform}
 .xrow .yr{color:var(--fg3)}

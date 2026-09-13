@@ -64,10 +64,11 @@ export const projects: Project[] = [
     href: 'https://www.youtube.com/watch?v=-2fV_kg2tZA', cur: 'demo', color: 'var(--pink)', size: 'half',
   },
   {
-    id: 'looplens', num: '04', cat: 'B2B · Devtools', title: 'LoopLens.', tagline: 'Is AI coding helping?',
-    body: 'Links Codex, Claude Code and Cursor sessions to CI, PR review, deploys, Jira and token spend. Surfaces retry loops and review rework instead of vanity velocity. Local collectors, SQLite spool, WorkOS auth.',
-    chips: ['TypeScript', 'SQLite', 'Webhooks', 'WorkOS'], cta: 'Demo',
-    href: 'https://www.youtube.com/watch?v=uZdqtOzxgMY', cur: 'demo', color: 'var(--blue)', size: 'half',
+    id: 'bifrost', num: '04', cat: 'Governed agents · Solana', title: 'Bifrost.', tagline: 'Missions with a budget and a veto.',
+    body: 'Coordinator, research, risk, execution, verifier, and settlement agents run a Solana-native mission stack under scoped budgets, approval policies, and capability-based routing. Wallet auth, spending limits, live WebSocket mission streams, and verifier-gated settlement. Vaults, receipts, and verification are native Rust primitives.',
+    chips: ['LangGraph.js', 'Solana', 'Rust', 'WebSockets'], cta: 'Watch the demo',
+    href: 'https://www.loom.com/share/3af086e21d2c445a90fc70a052041010', repo: 'https://github.com/AvichalDwivedi2205/Bifrost',
+    cur: 'demo', color: 'var(--blue)', size: 'half',
   },
   {
     id: 'latchgrid', num: '05', cat: 'Live product · Creator OS', title: 'LatchGrid.', tagline: 'A canvas that thinks with you.',

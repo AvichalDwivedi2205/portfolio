@@ -29,7 +29,7 @@ export function BuddyDock() {
     const io = new IntersectionObserver(entries => {
       for (const e of entries) {
         const key = (e.target as HTMLElement).dataset.tip
-        if (!e.isIntersecting || !key || key === 'top' || seen.has(key) || !tips[key]) continue
+        if (!e.isIntersecting || !key || seen.has(key) || !tips[key]) continue
         seen.add(key)
         say(tips[key], matchMedia('(max-width: 600px)').matches ? 3200 : 5200)
       }

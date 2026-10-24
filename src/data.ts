@@ -144,12 +144,6 @@ export const research: Research[] = [
   },
 ]
 
-export const takes: { q: string; a: string; src: string; hue: Hue }[] = [
-  { q: "Grounded or it didn't happen.", a: "Every AI answer I ship points at its evidence. Cue links each step to the log, request or test that proves it; Aperture flags resume claims it can't verify; Guild won't count evidence as proof until the check exists. Confident text without a receipt is a liability with good grammar.", src: 'from building Cue & Guild', hue: 'sky' },
-  { q: 'Agents draft. Humans send.', a: 'Cue drafts the reply and proposes the fix, but a person approves the exact draft before it posts and the exact commit before it ships. Fo Reach waits for a tick before it touches your Mac. That gate is the difference between "cool demo" and "we can actually use this."', src: 'from building Cue & Fo Reach', hue: 'rose' },
-  { q: 'Latency is a feature, not infra.', a: 'A voice agent that answers in 2 seconds is a phone tree. Turn detection, streaming, knowing when to shut up. Those are product decisions and the PM should own them.', src: 'from building Aperture', hue: 'sun' },
-]
-
 export type Xp = { yr: string; role: string; org: string; body: string; loc: string; href?: string }
 export const experience: Xp[] = [
   { yr: 'Jul 2026 - now', role: 'Open Source Contributor', org: '@ Orca · stablyai/orca · 100K+ ★', loc: 'remote', href: 'https://github.com/stablyai/orca',
@@ -185,19 +179,19 @@ export const skills = {
 /* ───────── game ───────── */
 
 export type QuestId =
-  | 'hello' | 'sticker' | 'interview' | 'demo1' | 'demo3' | 'flip'
+  | 'hello' | 'sticker' | 'stars' | 'interview' | 'demo1' | 'demo3'
   | 'studio' | 'night' | 'secret' | 'shop' | 'resume' | 'hi'
 export type IconName =
-  | 'wave' | 'drag' | 'mic' | 'play' | 'bolt' | 'flame' | 'palette' | 'moon' | 'sun' | 'key'
-  | 'bag' | 'doc' | 'mail' | 'trophy' | 'check' | 'lock' | 'star' | 'close' | 'reset'
+  | 'wave' | 'drag' | 'mic' | 'play' | 'bolt' | 'palette' | 'moon' | 'sun' | 'key'
+  | 'bag' | 'doc' | 'mail' | 'trophy' | 'check' | 'lock' | 'star' | 'close' | 'reset' | 'chest' | 'arrow'
 export type Quest = { id: QuestId; title: string; hint: string; xp: number; coins: number; icon: IconName; hue: Hue }
 export const quests: Quest[] = [
   { id: 'hello', title: 'Say hi to Lory', hint: 'Tap the little astronaut.', xp: 10, coins: 5, icon: 'wave', hue: 'sky' },
   { id: 'sticker', title: 'Rearrange the wall', hint: 'Drag a sticker in the hero.', xp: 10, coins: 5, icon: 'drag', hue: 'sun' },
+  { id: 'stars', title: 'Stargazer', hint: 'Catch the 3 stars hiding in the hero sky.', xp: 15, coins: 10, icon: 'star', hue: 'rose' },
   { id: 'interview', title: 'Sit through the interview', hint: 'Watch Aperture grill Avichal.', xp: 20, coins: 10, icon: 'mic', hue: 'lav' },
   { id: 'demo1', title: 'Press a button', hint: 'Play any project demo.', xp: 15, coins: 10, icon: 'play', hue: 'coral' },
   { id: 'demo3', title: 'Power user', hint: 'Play 3 different project demos.', xp: 30, coins: 20, icon: 'bolt', hue: 'sun' },
-  { id: 'flip', title: 'Hot take', hint: 'Flip a hot take card.', xp: 10, coins: 5, icon: 'flame', hue: 'rose' },
   { id: 'studio', title: 'Studio visit', hint: 'Open a design in the Design Studio.', xp: 15, coins: 10, icon: 'palette', hue: 'moss' },
   { id: 'night', title: 'Night shift', hint: 'Switch the sky to night.', xp: 10, coins: 5, icon: 'moon', hue: 'lav' },
   { id: 'secret', title: 'Secret handshake', hint: 'The logo likes being clicked. A lot.', xp: 25, coins: 15, icon: 'key', hue: 'coral' },
@@ -233,13 +227,36 @@ export const trophies: { n: string; l: string; hue: Hue }[] = [
   { n: 'DRDO', l: "worked with · can't say more", hue: 'lav' },
 ]
 
+/* The three quests on the hero card. Finishing them unlocks the starter chest. */
+export const starter: { id: QuestId; title: string; hint: string }[] = [
+  { id: 'hello', title: 'Say hi', hint: 'tap Lory' },
+  { id: 'sticker', title: 'Drag a sticker', hint: 'any one' },
+  { id: 'stars', title: 'Catch 3 stars', hint: 'hiding in the sky' },
+]
+export const chestCoins = 25
+
+/* Lory's hero bubble: a hint for the next starter quest, then small talk once the chest is open. */
+export const loryHints = {
+  hello: "Hi! I'm Lory, Avichal's guide. Tap me to say hi.",
+  sticker: 'Nice to meet you! Now grab a sticker and drag it around.',
+  stars: (n: number) => `Three stars are hiding in this sky. ${n}/3 caught.`,
+  chest: 'You did it! Open your starter chest.',
+  next: 'Next up: play a project demo. Scroll down!',
+}
+export const loryChat = [
+  'Beep. That tickles.',
+  'I run on cold brew and gradient descent.',
+  'Avichal built me with zero slide decks.',
+  'Psst. The logo likes being clicked. A lot.',
+  'At night I can see the moon from here.',
+  'Every card below is playable. I checked.',
+]
+
 export const tips: Record<string, string> = {
-  top: "Hi! I'm Lory. Avichal built me to show you around. Tap me for quests.",
   chat: 'Aperture ran this interview. It interrupts way less now.',
   work: 'Every card is playable. Go on, press things.',
   designs: 'Tap a design to play with the real prototype.',
   research: 'Lab notes. The Qwen one actually moved a benchmark.',
-  takes: 'Tap a card to flip it. Opinions, earned the hard way.',
   xp: 'Receipts. Jobs, labs and one classified room.',
   contact: 'You made it! Say hi, he replies fast.',
 }

@@ -1,20 +1,23 @@
 import { useSyncExternalStore } from 'react'
-import { levels, quests, shop, type ItemId, type PlayId, type QuestId } from '../data'
+import { chestCoins, levels, quests, shop, starter, type ItemId, type PlayId, type QuestId } from '../data'
 
 /* Two tiny external stores: `game` is persisted progress, `ui` is session-only chrome state.
    useSyncExternalStore + selectors means a coin change re-renders the HUD, not the page. */
 
-type Game = { xp: number; coins: number; done: QuestId[]; owned: ItemId[]; wear: ItemId[]; played: PlayId[] }
+type Game = { xp: number; coins: number; done: QuestId[]; owned: ItemId[]; wear: ItemId[]; played: PlayId[]; stars: number[]; chest: boolean }
 export type Mood = 'happy' | 'wow' | 'wave' | 'think' | 'sleepy'
-export type Toast = { id: number; kind: 'quest' | 'level' | 'buy'; title: string; sub: string }
+export type Toast = { id: number; kind: 'quest' | 'level' | 'buy' | 'chest'; title: string; sub: string }
 export type Tab = 'quests' | 'wardrobe' | 'trophies'
 type Ui = { board: boolean; tab: Tab; toasts: Toast[]; mood: Mood; burst: number; say: { id: number; text: string } | null; theme: 'day' | 'night' }
 
 const KEY = 'av-game-v1', THEME = 'av-theme'
-const fresh: Game = { xp: 0, coins: 10, done: [], owned: [], wear: [], played: [] }
+const fresh: Game = { xp: 0, coins: 10, done: [], owned: [], wear: [], played: [], stars: [], chest: false }
 
 function load(): Game {
-  try { return { ...fresh, ...JSON.parse(localStorage.getItem(KEY) ?? '{}') } } catch { return fresh }
+  try {
+    const s: Game = { ...fresh, ...JSON.parse(localStorage.getItem(KEY) ?? '{}') }
+    return { ...s, done: s.done.filter(id => quests.some(q => q.id === id)) }
+  } catch { return fresh }
 }
 const initialTheme = (): Ui['theme'] => (typeof document !== 'undefined' && document.documentElement.dataset.theme === 'night' ? 'night' : 'day')
 
@@ -90,6 +93,25 @@ export function played(id: PlayId) {
   if (!s.played.includes(id)) game.set({ played: [...s.played, id] })
   complete('demo1')
   if (game.get().played.length >= 3) complete('demo3')
+}
+
+export function catchStar(i: number) {
+  const s = game.get()
+  if (s.stars.includes(i)) return
+  game.set({ stars: [...s.stars, i], coins: s.coins + 2 })
+  react('wow', 900)
+  if (game.get().stars.length >= 3) complete('stars')
+}
+
+export const starterDone = (done: QuestId[]) => starter.every(q => done.includes(q.id))
+
+export function claimChest() {
+  const s = game.get()
+  if (s.chest || !starterDone(s.done)) return
+  game.set({ chest: true, coins: s.coins + chestCoins })
+  toast({ kind: 'chest', title: 'Starter chest opened', sub: `+${chestCoins} coins. The wardrobe is open.` })
+  react('wave', 1600)
+  burst()
 }
 
 export function buy(id: ItemId) {

@@ -66,7 +66,7 @@ export function say(text: string, ms = 5200) {
 
 export const burst = () => ui.set({ burst: ui.get().burst + 1 })
 
-const growth = ['', '', 'Orbit got a helmet.', 'Halfway to the stars.', 'Orbit got a jetpack!', 'Captain on deck. You found almost everything.']
+const growth = ['', '', 'Lory got a helmet.', 'Halfway to the stars.', 'Lory got a jetpack!', 'Captain on deck. You found almost everything.']
 
 export function complete(id: QuestId) {
   const s = game.get()
@@ -96,7 +96,7 @@ export function buy(id: ItemId) {
   const s = game.get(), item = shop.find(x => x.id === id)!
   if (s.owned.includes(id) || s.coins < item.price) return false
   game.set({ coins: s.coins - item.price, owned: [...s.owned, id], wear: [...s.wear, id] })
-  toast({ kind: 'buy', title: `${item.name} unlocked`, sub: 'Orbit is wearing it now.' })
+  toast({ kind: 'buy', title: `${item.name} unlocked`, sub: 'Lory is wearing it now.' })
   react('wave')
   complete('shop')
   return true

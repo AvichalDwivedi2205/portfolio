@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { levels, quests, shop, trophies } from '../data'
 import { buy, closeBoard, levelOf, resetGame, setTab, toggleWear, useGame, useUi, type Tab } from '../game/store'
 import { snappy } from '../hooks'
-import { Buddy, useOrbit } from './Buddy'
+import { Buddy, useLory } from './Buddy'
 import { Coin, Icon } from './Icon'
 
 const tabs: { id: Tab; label: string }[] = [
@@ -82,7 +82,7 @@ function Trophies() {
 export function QuestBoard() {
   const open = useUi(s => s.board), tab = useUi(s => s.tab)
   const xp = useGame(s => s.xp), coins = useGame(s => s.coins)
-  const orbit = useOrbit()
+  const lory = useLory()
   const lv = levelOf(xp), from = levels[lv].at, to = levels[lv + 1]?.at
 
   useEffect(() => {
@@ -100,7 +100,7 @@ export function QuestBoard() {
           <motion.aside key="board" className="qb" role="dialog" aria-modal="true" aria-label="Quest board"
             initial={{ x: '108%' }} animate={{ x: 0 }} exit={{ x: '108%' }} transition={{ type: 'spring', stiffness: 320, damping: 34 }}>
             <div className="qb-head">
-              <Buddy size={84} {...orbit} />
+              <Buddy size={84} {...lory} />
               <div className="qb-who">
                 <span className="hand">level {lv + 1}</span>
                 <b>{levels[lv].name}</b>

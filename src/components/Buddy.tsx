@@ -8,9 +8,9 @@ const OUT = 'var(--out)', SW = 5
 
 type Props = { size?: number; mood?: Mood; stage?: number; wear?: ItemId[]; follow?: boolean; className?: string; onClick?: () => void; label?: string }
 
-/* Orbit: a robot astronaut in the same chunky-outline style as Remi's companions.
+/* Lory: a robot astronaut in the same chunky-outline style as Remi's companions.
    Stage 0 bare bot, 1 adds the glass helmet, 2 adds the jetpack. Eyes track the pointer via springs (no re-render). */
-export function Buddy({ size = 120, mood = 'happy', stage = 0, wear = [], follow = true, className = '', onClick, label = 'Orbit' }: Props) {
+export function Buddy({ size = 120, mood = 'happy', stage = 0, wear = [], follow = true, className = '', onClick, label = 'Lory' }: Props) {
   const ref = useRef<SVGSVGElement>(null)
   const fine = useFinePointer()
   const [hover, setHover] = useState(false)
@@ -161,7 +161,7 @@ export function Buddy({ size = 120, mood = 'happy', stage = 0, wear = [], follow
 }
 
 /* Live props: level-driven stage, purchased outfit, store mood. */
-export function useOrbit() {
+export function useLory() {
   const stage = useGame(s => stageOf(levelOf(s.xp)))
   const wear = useGame(s => s.wear)
   const mood = useUi(s => s.mood)

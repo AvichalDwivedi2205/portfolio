@@ -71,7 +71,7 @@ export const projects: Project[] = [
     id: 'foreach', num: '04', cat: 'Mac MCP · Wajo GSD hackathon', title: 'Fo Reach.', tagline: 'Fixes your Mac, with permission.',
     body: "A permission-controlled local MCP companion that lets Fo, Wajo's AI assistant, work on your Mac. It switches and unmutes sound output, opens apps, reads and writes files only in folders you pick, and builds editable slide decks. Every change runs inspect, propose, approve, apply, verify, with an undo you approve too. A native Swift helper talks to CoreAudio: no shell, no sudo.",
     chips: ['MCP', 'TypeScript', 'Swift', 'CoreAudio', 'SQLite'], cta: 'See it on X',
-    href: links.x, repo: 'https://github.com/AvichalDwivedi2205/wajo-hack',
+    href: 'https://x.com/Avichal2205/status/2112235879389647239', repo: 'https://github.com/AvichalDwivedi2205/wajo-hack',
     cur: 'post', hue: 'sky', size: 'half', play: 'foreach',
   },
   {
@@ -192,7 +192,7 @@ export type IconName =
   | 'bag' | 'doc' | 'mail' | 'trophy' | 'check' | 'lock' | 'star' | 'close' | 'reset'
 export type Quest = { id: QuestId; title: string; hint: string; xp: number; coins: number; icon: IconName; hue: Hue }
 export const quests: Quest[] = [
-  { id: 'hello', title: 'Say hi to Orbit', hint: 'Tap the little astronaut.', xp: 10, coins: 5, icon: 'wave', hue: 'sky' },
+  { id: 'hello', title: 'Say hi to Lory', hint: 'Tap the little astronaut.', xp: 10, coins: 5, icon: 'wave', hue: 'sky' },
   { id: 'sticker', title: 'Rearrange the wall', hint: 'Drag a sticker in the hero.', xp: 10, coins: 5, icon: 'drag', hue: 'sun' },
   { id: 'interview', title: 'Sit through the interview', hint: 'Watch Aperture grill Avichal.', xp: 20, coins: 10, icon: 'mic', hue: 'lav' },
   { id: 'demo1', title: 'Press a button', hint: 'Play any project demo.', xp: 15, coins: 10, icon: 'play', hue: 'coral' },
@@ -201,7 +201,7 @@ export const quests: Quest[] = [
   { id: 'studio', title: 'Studio visit', hint: 'Open a design in the Design Studio.', xp: 15, coins: 10, icon: 'palette', hue: 'moss' },
   { id: 'night', title: 'Night shift', hint: 'Switch the sky to night.', xp: 10, coins: 5, icon: 'moon', hue: 'lav' },
   { id: 'secret', title: 'Secret handshake', hint: 'The logo likes being clicked. A lot.', xp: 25, coins: 15, icon: 'key', hue: 'coral' },
-  { id: 'shop', title: 'Treat Orbit', hint: 'Buy something in the wardrobe.', xp: 10, coins: 5, icon: 'bag', hue: 'rose' },
+  { id: 'shop', title: 'Treat Lory', hint: 'Buy something in the wardrobe.', xp: 10, coins: 5, icon: 'bag', hue: 'rose' },
   { id: 'resume', title: 'Read the fine print', hint: 'Open the resume.', xp: 15, coins: 10, icon: 'doc', hue: 'sky' },
   { id: 'hi', title: 'Say hi to Avichal', hint: 'Email him or find him online.', xp: 30, coins: 20, icon: 'mail', hue: 'moss' },
 ]
@@ -234,7 +234,7 @@ export const trophies: { n: string; l: string; hue: Hue }[] = [
 ]
 
 export const tips: Record<string, string> = {
-  top: "Hi! I'm Orbit. Avichal built me to show you around. Tap me for quests.",
+  top: "Hi! I'm Lory. Avichal built me to show you around. Tap me for quests.",
   chat: 'Aperture ran this interview. It interrupts way less now.',
   work: 'Every card is playable. Go on, press things.',
   designs: 'Tap a design to play with the real prototype.',

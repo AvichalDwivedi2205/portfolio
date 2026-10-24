@@ -3,8 +3,8 @@ import { WordSwap } from './WordSwap'
 import { Stickers } from './Stickers'
 import { Magnetic } from './Magnetic'
 import { Sky } from './Sky'
-import { Buddy, useOrbit } from './Buddy'
-import { greetOrbit } from './BuddyDock'
+import { Buddy, useLory } from './Buddy'
+import { greetLory } from './BuddyDock'
 import { links, scrambleWords, tips } from '../data'
 import { complete } from '../game/store'
 import { ease } from '../hooks'
@@ -12,7 +12,7 @@ import { ease } from '../hooks'
 const up = (d: number) => ({ initial: { opacity: 0, y: 30 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, ease, delay: d } })
 
 export function Hero() {
-  const orbit = useOrbit()
+  const lory = useLory()
   return (
     <header className="hero" id="hero" data-tip="top">
       <div className="hero-copy">
@@ -35,9 +35,9 @@ export function Hero() {
       <motion.div className="hero-art" initial={{ opacity: 0, scale: 0.96, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ type: 'spring', stiffness: 160, damping: 20, delay: 0.1 }}>
         <Sky />
         <Stickers />
-        <div className="hero-orbit">
+        <div className="hero-lory">
           <div className="bubble">{tips.top}</div>
-          <Buddy size={140} {...orbit} onClick={greetOrbit} label="Orbit, your guide. Open quests" />
+          <Buddy size={140} {...lory} onClick={greetLory} label="Lory, your guide. Open quests" />
         </div>
       </motion.div>
     </header>

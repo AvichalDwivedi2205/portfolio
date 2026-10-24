@@ -133,12 +133,12 @@ h1 .scr-word::after{content:"";position:absolute;left:-2px;right:-2px;bottom:4px
 .polaroid .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 12%}
 .polaroid .cap{position:absolute;left:0;right:0;bottom:8px;text-align:center;font:700 22px var(--hand);color:#2E2848}
 .hint{position:absolute;left:5%;bottom:3.5%;color:#fff;font-size:22px;text-shadow:0 2px 0 var(--hill-d);pointer-events:none;display:flex;gap:6px;align-items:center}
-.hero-orbit{position:absolute;right:5%;bottom:5%;z-index:3;display:flex;flex-direction:column;align-items:flex-end;gap:4px;pointer-events:none}
-.hero-orbit>*{pointer-events:auto}
-.hero-orbit .bubble{max-width:200px;margin-right:22px}
-.hero-orbit .bubble::after{content:"";position:absolute;right:46px;bottom:-9px;width:14px;height:14px;background:var(--card);border-right:2px solid var(--line2);border-bottom:2px solid var(--line2);transform:rotate(45deg)}
+.hero-lory{position:absolute;right:5%;bottom:5%;z-index:3;display:flex;flex-direction:column;align-items:flex-end;gap:4px;pointer-events:none}
+.hero-lory>*{pointer-events:auto}
+.hero-lory .bubble{max-width:200px;margin-right:22px}
+.hero-lory .bubble::after{content:"";position:absolute;right:46px;bottom:-9px;width:14px;height:14px;background:var(--card);border-right:2px solid var(--line2);border-bottom:2px solid var(--line2);transform:rotate(45deg)}
 
-/* Orbit */
+/* Lory */
 .buddy{overflow:visible;display:block;flex-shrink:0;-webkit-tap-highlight-color:transparent}
 .buddy[role=button]{cursor:pointer}
 .buddy:focus-visible{outline:3px solid var(--coral);outline-offset:4px;border-radius:24px}
@@ -506,8 +506,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .polaroid .cap{font-size:18px;bottom:6px}
   .stk{font-size:18px;padding:8px 11px;border-radius:13px}
   .stk small{font-size:8.5px}
-  .hero-orbit .buddy{width:104px;height:auto}
-  .hero-orbit .bubble{max-width:170px;font-size:12.5px;margin-right:14px}
+  .hero-lory .buddy{width:104px;height:auto}
+  .hero-lory .bubble{max-width:170px;font-size:12.5px;margin-right:14px}
   .hint{font-size:18px}
   .proj,.dcard{padding:20px;border-radius:24px}
   .sc{grid-template-columns:1fr 1fr}

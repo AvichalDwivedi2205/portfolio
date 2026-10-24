@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { tips } from '../data'
 import { complete, openBoard, react, say, useUi, wake } from '../game/store'
-import { Buddy, useOrbit } from './Buddy'
+import { Buddy, useLory } from './Buddy'
 
-export function greetOrbit() {
+export function greetLory() {
   complete('hello')
   react('wave', 1400)
   openBoard()
 }
 
-/* Docked Orbit: appears once the hero (with the big Orbit) scrolls away, comments on each section once. */
+/* Docked Lory: appears once the hero (with the big Lory) scrolls away, comments on each section once. */
 export function BuddyDock() {
-  const orbit = useOrbit()
+  const lory = useLory()
   const line = useUi(s => s.say)
   const [show, setShow] = useState(false)
 
@@ -63,7 +63,7 @@ export function BuddyDock() {
               </motion.div>
             )}
           </AnimatePresence>
-          <Buddy size={96} {...orbit} onClick={greetOrbit} label="Orbit, your guide. Open quests" />
+          <Buddy size={96} {...lory} onClick={greetLory} label="Lory, your guide. Open quests" />
         </motion.div>
       )}
     </AnimatePresence>

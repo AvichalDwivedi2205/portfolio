@@ -1,10 +1,12 @@
 import { useRef } from 'react'
+import { burst, complete, react } from '../game/store'
+import { Hud, ThemeToggle } from './Hud'
 
-export function Nav({ onSecret }: { onSecret: () => void }) {
+export function Nav() {
   const clicks = useRef(0)
   const onLogo = (e: React.MouseEvent) => {
     e.preventDefault()
-    if (++clicks.current >= 5) { clicks.current = 0; onSecret() }
+    if (++clicks.current >= 5) { clicks.current = 0; burst(); react('wow'); complete('secret') }
     else scrollTo({ top: 0, behavior: 'smooth' })
   }
   return (
@@ -14,9 +16,14 @@ export function Nav({ onSecret }: { onSecret: () => void }) {
         <div className="navlinks">
           <a href="#chat">Interview</a>
           <a href="#work">Work</a>
+          <a href="#designs">Designs</a>
           <a href="#research">Lab notes</a>
           <a href="#xp">Receipts</a>
           <a href="#contact">Contact</a>
+        </div>
+        <div className="navr">
+          <ThemeToggle />
+          <Hud />
         </div>
       </div>
     </nav>

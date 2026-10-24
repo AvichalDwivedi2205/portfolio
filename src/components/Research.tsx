@@ -5,10 +5,10 @@ import { Split } from './Split'
 /* Compact list for research / ML / hackathon builds. Hover slides the row and lights the badge. */
 export function Research() {
   return (
-    <section id="research" className="wrap" style={{ paddingTop: 40 }}>
+    <section id="research" className="wrap" data-tip="research">
       <div className="head">
         <Split text="Lab notes." />
-        <span className="tag mono">post-training · RL envs · on-device · multi-agent</span>
+        <span className="note-tag hand">post-training · RL envs · on-device · multi-agent</span>
       </div>
       <div className="research">
         {research.map((r, i) => {

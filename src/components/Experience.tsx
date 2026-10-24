@@ -4,10 +4,10 @@ import { Split } from './Split'
 
 export function Experience() {
   return (
-    <section id="xp" className="wrap">
+    <section id="xp" className="wrap" data-tip="xp">
       <div className="head">
         <Split text="Receipts." />
-        <span className="tag mono">jobs, labs, and classified rooms</span>
+        <span className="note-tag hand">jobs, labs, and classified rooms</span>
       </div>
       <div className="xp">
         {experience.map((x, i) => (

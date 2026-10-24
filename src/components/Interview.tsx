@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'motion/react'
 import { interview } from '../data'
+import { complete } from '../game/store'
 import { Split } from './Split'
 import { useReducedMotion } from '../hooks'
+import portrait from '../assets/portrait.jpg'
 
 type Phase = 'hidden' | 'typing' | 'shown'
 
@@ -14,7 +16,7 @@ export function Interview() {
 
   useEffect(() => {
     if (!inView) return
-    if (reduce) { setPhase(interview.map(() => 'shown')); return }
+    if (reduce) { setPhase(interview.map(() => 'shown')); complete('interview'); return }
     const timers: number[] = []
     let delay = 0
     interview.forEach((m, i) => {
@@ -23,14 +25,15 @@ export function Interview() {
       timers.push(setTimeout(() => setPhase(p => p.map((v, j) => (j === i ? 'shown' : v))), delay))
       delay += 450
     })
+    timers.push(setTimeout(() => complete('interview'), delay))
     return () => timers.forEach(clearTimeout)
   }, [inView, reduce])
 
   return (
-    <section id="chat" className="wrap">
+    <section id="chat" className="wrap" data-tip="chat">
       <div className="head">
         <Split text="The interview." />
-        <span className="tag mono">Conducted by an AI I built</span>
+        <span className="note-tag hand">conducted by an AI I built</span>
       </div>
       <div className="chat" ref={box}>
         {interview.map((m, i) => phase[i] !== 'hidden' && (
@@ -41,7 +44,7 @@ export function Interview() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ type: 'spring', stiffness: 320, damping: 22 }}
           >
-            <div className="av">{m.who === 'ai' ? 'ap' : 'av'}</div>
+            <div className="av">{m.who === 'ai' ? 'ap' : <img src={portrait} alt="" />}</div>
             <motion.div className="bub" layout transition={{ layout: { type: 'spring', stiffness: 300, damping: 26 } }}>
               {phase[i] === 'typing'
                 ? <span className="typing"><i /><i /><i /></span>

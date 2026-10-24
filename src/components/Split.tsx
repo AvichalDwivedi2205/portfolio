@@ -21,7 +21,7 @@ export function Split({ text, className = '', hoverPop = false }: Props) {
           aria-hidden
           variants={{ hide: { opacity: 0, y: 40, rotate: 6 }, show: { opacity: 1, y: 0, rotate: 0 } }}
           transition={{ type: 'spring', stiffness: 260, damping: 18 }}
-          whileHover={hoverPop ? { y: -20, rotate: -8, scale: 1.1, color: 'var(--lime)', transition: { type: 'spring', stiffness: 400, damping: 12 } } : undefined}
+          whileHover={hoverPop ? { y: -20, rotate: -8, scale: 1.1, color: 'var(--coral)', transition: { type: 'spring', stiffness: 400, damping: 12 } } : undefined}
         >
           {c === ' ' ? '\u00A0' : c}
         </motion.span>

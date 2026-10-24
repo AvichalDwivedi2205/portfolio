@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { awards } from '../data'
 import { bouncy } from '../hooks'
+import { Icon } from './Icon'
 
 export function Awards() {
   return (
@@ -9,7 +10,7 @@ export function Awards() {
         {awards.map((a, i) => {
           const inner = (
             <>
-              <div className="trophy" aria-hidden>🏆</div>
+              <div className="trophy"><Icon name="trophy" size={26} stroke={2.4} /></div>
               <div>
                 <div className="an">{a.n}</div>
                 <div className="ad">{a.d}</div>

@@ -16,6 +16,7 @@ import { Confetti } from './components/Confetti'
 import { BuddyDock } from './components/BuddyDock'
 import { QuestBoard } from './components/QuestBoard'
 import { Toasts } from './components/Toasts'
+import { SayHiSheet } from './components/SayHi'
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
       <Footer />
       <BuddyDock />
       <QuestBoard />
+      <SayHiSheet />
       <Toasts />
     </>
   )

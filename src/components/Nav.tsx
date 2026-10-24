@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { burst, complete, react } from '../game/store'
 import { Hud, ThemeToggle } from './Hud'
+import { SayHiButton } from './SayHi'
 
 export function Nav() {
   const clicks = useRef(0)
@@ -19,11 +20,11 @@ export function Nav() {
           <a href="#designs">Designs</a>
           <a href="#research">Lab notes</a>
           <a href="#xp">Receipts</a>
-          <a href="#contact">Contact</a>
         </div>
         <div className="navr">
           <ThemeToggle />
           <Hud />
+          <SayHiButton />
         </div>
       </div>
     </nav>

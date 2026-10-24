@@ -197,7 +197,7 @@ export const quests: Quest[] = [
   { id: 'secret', title: 'Secret handshake', hint: 'The logo likes being clicked. A lot.', xp: 25, coins: 15, icon: 'key', hue: 'coral' },
   { id: 'shop', title: 'Treat Lory', hint: 'Buy something in the wardrobe.', xp: 10, coins: 5, icon: 'bag', hue: 'rose' },
   { id: 'resume', title: 'Read the fine print', hint: 'Open the resume.', xp: 15, coins: 10, icon: 'doc', hue: 'sky' },
-  { id: 'hi', title: 'Say hi to Avichal', hint: 'Email him or find him online.', xp: 30, coins: 20, icon: 'mail', hue: 'moss' },
+  { id: 'hi', title: 'Say hi to Avichal', hint: 'Tap Say hi up top, or copy his email.', xp: 30, coins: 20, icon: 'mail', hue: 'moss' },
 ]
 
 export const levels = [

@@ -8,7 +8,7 @@ type Game = { xp: number; coins: number; done: QuestId[]; owned: ItemId[]; wear:
 export type Mood = 'happy' | 'wow' | 'wave' | 'think' | 'sleepy'
 export type Toast = { id: number; kind: 'quest' | 'level' | 'buy' | 'chest'; title: string; sub: string }
 export type Tab = 'quests' | 'wardrobe' | 'trophies'
-type Ui = { board: boolean; tab: Tab; toasts: Toast[]; mood: Mood; burst: number; say: { id: number; text: string } | null; theme: 'day' | 'night' }
+type Ui = { board: boolean; hi: boolean; tab: Tab; toasts: Toast[]; mood: Mood; burst: number; say: { id: number; text: string } | null; theme: 'day' | 'night' }
 
 const KEY = 'av-game-v1', THEME = 'av-theme'
 const fresh: Game = { xp: 0, coins: 10, done: [], owned: [], wear: [], played: [], stars: [], chest: false }
@@ -32,7 +32,7 @@ function createStore<T>(init: T, persist?: (s: T) => void) {
 }
 
 const game = createStore<Game>(load(), s => { try { localStorage.setItem(KEY, JSON.stringify(s)) } catch { /* private mode */ } })
-const ui = createStore<Ui>({ board: false, tab: 'quests', toasts: [], mood: 'happy', burst: 0, say: null, theme: initialTheme() })
+const ui = createStore<Ui>({ board: false, hi: false, tab: 'quests', toasts: [], mood: 'happy', burst: 0, say: null, theme: initialTheme() })
 
 export const useGame = <R,>(sel: (s: Game) => R) => useSyncExternalStore(game.sub, () => sel(game.get()))
 export const useUi = <R,>(sel: (s: Ui) => R) => useSyncExternalStore(ui.sub, () => sel(ui.get()))
@@ -135,8 +135,10 @@ export function resetGame() {
   ui.set({ toasts: [] })
 }
 
-export function openBoard(tab: Tab = ui.get().tab) { ui.set({ board: true, tab }) }
+export function openBoard(tab: Tab = ui.get().tab) { ui.set({ board: true, hi: false, tab }) }
 export const closeBoard = () => ui.set({ board: false })
+export const openHi = () => ui.set({ hi: true, board: false })
+export const closeHi = () => ui.set({ hi: false })
 export const setTab = (tab: Tab) => ui.set({ tab })
 
 export function toggleTheme() {

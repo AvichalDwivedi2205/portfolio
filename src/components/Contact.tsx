@@ -3,9 +3,12 @@ import { complete } from '../game/store'
 import { Split } from './Split'
 import { Reveal } from './Reveal'
 import { Magnetic } from './Magnetic'
+import { Icon } from './Icon'
+import { useCopyEmail } from './SayHi'
 
 export function Contact() {
   const hi = () => complete('hi')
+  const [copied, copy] = useCopyEmail()
   return (
     <section id="contact" className="contact wrap" data-tip="contact">
       <Reveal className="hand" style={{ fontSize: 30, color: 'var(--coral-d)', marginBottom: 12 }}>hiring for an ai team? cool.</Reveal>
@@ -18,7 +21,11 @@ export function Contact() {
         <Magnetic className="btn sec" href={links.github} target="_blank" rel="noopener" onClick={hi}>GitHub</Magnetic>
         <Magnetic className="btn sec" href={links.resume} target="_blank" rel="noopener" onClick={() => complete('resume')}>Resume</Magnetic>
       </Reveal>
-      <Reveal delay={0.2}><a className="mail" href={`mailto:${links.email}`} onClick={hi}>{links.email}</a></Reveal>
+      <Reveal delay={0.2}>
+        <button className={`mail ${copied ? 'done' : ''}`} onClick={copy} aria-label={`Copy ${links.email}`}>
+          {links.email} <span>{copied ? <><Icon name="check" size={13} stroke={3} /> copied</> : 'tap to copy'}</span>
+        </button>
+      </Reveal>
     </section>
   )
 }

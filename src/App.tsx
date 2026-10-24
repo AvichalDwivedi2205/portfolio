@@ -7,7 +7,6 @@ import { Interview } from './components/Interview'
 import { Work } from './components/Work'
 import { Designs } from './components/Designs'
 import { Research } from './components/Research'
-import { Takes } from './components/Takes'
 import { Experience } from './components/Experience'
 import { Awards } from './components/Awards'
 import { Skills } from './components/Skills'
@@ -32,7 +31,6 @@ export default function App() {
         <Work />
         <Designs />
         <Research />
-        <Takes />
         <Experience />
         <Awards />
         <Skills />

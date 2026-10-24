@@ -1,13 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="8" fill="#0d0b14"/>
+  <rect width="32" height="32" rx="9" fill="#FF8A4C"/>
+  <rect y="27" width="32" height="5" rx="2.5" fill="#E2692B"/>
   <text
     x="16"
-    y="23.5"
+    y="22"
     text-anchor="middle"
-    font-family="Arial Black, Arial, sans-serif"
+    font-family="Arial Rounded MT Bold, Arial Black, Arial, sans-serif"
     font-size="17"
     font-weight="800"
-    fill="#c8ff3d"
-    letter-spacing="-1.4"
+    fill="#FFF8EF"
+    letter-spacing="-1"
   >a.</text>
 </svg>

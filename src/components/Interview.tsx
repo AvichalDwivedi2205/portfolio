@@ -1,57 +1,41 @@
-import { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'motion/react'
-import { interview } from '../data'
-import { complete } from '../game/store'
-import { Split } from './Split'
-import { useReducedMotion } from '../hooks'
-import portrait from '../assets/portrait.jpg'
+import { interview, verdict } from '../data'
+import { useReveal } from '../hooks'
+import { R, SectionHead } from './ui'
 
-type Phase = 'hidden' | 'typing' | 'shown'
-
+/* Set like a magazine Q&A: the question in the serif, the answer beside it, and the interviewer's
+   verdict stamped at the bottom. The interviewer is Aperture, the voice agent from the work section. */
 export function Interview() {
-  const box = useRef<HTMLDivElement>(null)
-  const inView = useInView(box, { once: true, amount: 0.25 })
-  const reduce = useReducedMotion()
-  const [phase, setPhase] = useState<Phase[]>(() => interview.map(() => 'hidden'))
-
-  useEffect(() => {
-    if (!inView) return
-    if (reduce) { setPhase(interview.map(() => 'shown')); complete('interview'); return }
-    const timers: number[] = []
-    let delay = 0
-    interview.forEach((m, i) => {
-      timers.push(setTimeout(() => setPhase(p => p.map((v, j) => (j === i ? 'typing' : v))), delay))
-      delay += 600 + Math.min(m.html.length * 4, 900)
-      timers.push(setTimeout(() => setPhase(p => p.map((v, j) => (j === i ? 'shown' : v))), delay))
-      delay += 450
-    })
-    timers.push(setTimeout(() => complete('interview'), delay))
-    return () => timers.forEach(clearTimeout)
-  }, [inView, reduce])
-
+  const stamp = useReveal<HTMLDivElement>()
   return (
-    <section id="chat" className="wrap" data-tip="chat">
-      <div className="head">
-        <Split text="The interview." />
-        <span className="note-tag hand">conducted by an AI I built</span>
-      </div>
-      <div className="chat" ref={box}>
-        {interview.map((m, i) => phase[i] !== 'hidden' && (
-          <motion.div
-            key={i}
-            className={`msg ${m.who}`}
-            initial={{ opacity: 0, y: 18, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ type: 'spring', stiffness: 320, damping: 22 }}
-          >
-            <div className="av">{m.who === 'ai' ? 'ap' : <img src={portrait} alt="" />}</div>
-            <motion.div className="bub" layout transition={{ layout: { type: 'spring', stiffness: 300, damping: 26 } }}>
-              {phase[i] === 'typing'
-                ? <span className="typing"><i /><i /><i /></span>
-                : <span dangerouslySetInnerHTML={{ __html: m.html }} />}
-            </motion.div>
-          </motion.div>
-        ))}
+    <section className="talk" id="chat" data-theme="light">
+      <div className="wrap">
+        <SectionHead
+          label="In conversation"
+          title="Five questions, *straight* *answers.*"
+          note={<>Asked by Aperture,<br />the voice interviewer I built</>}
+        />
+
+        <ol className="qa">
+          {interview.map((t, i) => (
+            <R as="li" key={i} className="qa-row">
+              <span className="qa-n" aria-hidden>Q{i + 1}</span>
+              <h3 className="qa-q">{t.q}</h3>
+              <p className="qa-a" dangerouslySetInnerHTML={{ __html: t.a }} />
+            </R>
+          ))}
+        </ol>
+
+        <div className="talk-end">
+          <R as="p" className="talk-last">
+            <span className="mono dim">Aperture, closing remarks</span>
+            “{verdict.line}”
+          </R>
+          <div className="stamp" ref={stamp} role="img" aria-label={`Verdict: ${verdict.stamp}`}>
+            <span className="mono">Aperture · verdict</span>
+            <b>{verdict.stamp}</b>
+            <span className="mono">session #0412 · on the record</span>
+          </div>
+        </div>
       </div>
     </section>
   )

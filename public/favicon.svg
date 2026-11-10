@@ -1,14 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="9" fill="#FF8A4C"/>
-  <rect y="27" width="32" height="5" rx="2.5" fill="#E2692B"/>
-  <text
-    x="16"
-    y="22"
-    text-anchor="middle"
-    font-family="Arial Rounded MT Bold, Arial Black, Arial, sans-serif"
-    font-size="17"
-    font-weight="800"
-    fill="#FFF8EF"
-    letter-spacing="-1"
-  >a.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="7" fill="#060608"/>
+  <g stroke="#e6e6e6">
+    <path d="M4.5 27.5 16 5l11.5 22.5" stroke-width="3" stroke-miterlimit="8"/>
+    <path d="M11.9 27.5V23M20.1 27.5V23" stroke-width="2.4"/>
+    <path d="M16 27.5v-11" stroke-width="2.4" stroke="#ff6a3d"/>
+  </g>
 </svg>

@@ -1,17 +1,19 @@
 import { useRef, useState } from 'react'
-import { motion } from 'motion/react'
 import { designs, type Design } from '../data'
-import { complete } from '../game/store'
-import { Split } from './Split'
+import { useReveal } from '../hooks'
 import { Icon } from './Icon'
+import { R, SectionHead, UBtn } from './ui'
 
-const hueVars = (d: Design) => ({ ['--c' as string]: `var(--${d.hue})`, ['--cd' as string]: `var(--${d.hue}-d)`, ['--cl' as string]: `var(--${d.hue}-l)` })
+const kind = { live: 'Interactive prototype', shot: 'Live product', strip: 'Store screens' } as const
 
 function Window({ url, children }: { url: string; children: React.ReactNode }) {
+  const ref = useReveal<HTMLDivElement>()
   return (
-    <div className="win">
-      <div className="win-bar"><span className="dots"><i /><i /><i /></span><span className="win-url mono">{url.replace(/^https:\/\//, '').split('/')[0]}</span></div>
-      <div className="win-body">{children}</div>
+    <div className="win-wrap" ref={ref}>
+      <div className="win">
+        <div className="win-bar"><span className="dots"><i /><i /><i /></span><span className="mono">{url.replace(/^https:\/\//, '').split('/')[0]}</span></div>
+        <div className="win-body">{children}</div>
+      </div>
     </div>
   )
 }
@@ -24,26 +26,35 @@ function Live({ d }: { d: Design }) {
       {on
         ? <iframe src={d.href} title={`${d.title} design playground`} loading="lazy" allow="fullscreen" />
         : (
-          <button className="poster" onClick={() => { setOn(true); complete('studio') }} data-cur="play">
+          <button className="poster" onClick={() => setOn(true)} data-cur="play" aria-label={`Load the ${d.title} prototype`}>
             <img src={d.poster} alt={`${d.title} design playground preview`} loading="lazy" />
-            <span className="btn"><Icon name="play" size={18} fill stroke={0} /> {d.cta}</span>
+            <span className="poster-btn"><Icon name="play" size={14} fill stroke={0} />{d.cta}</span>
           </button>
         )}
     </Window>
   )
 }
 
+/* Phone screens on a rail: drag it, or use the arrows. */
 function Strip({ d }: { d: Design }) {
   const row = useRef<HTMLDivElement>(null)
-  const nudge = (dir: number) => { row.current?.scrollBy({ left: dir * 280, behavior: 'smooth' }); complete('studio') }
+  const drag = useRef<{ x: number; left: number } | null>(null)
+  const nudge = (dir: number) => row.current?.scrollBy({ left: dir * 300, behavior: 'smooth' })
+
   return (
     <div className="strip-wrap">
-      <div className="strip" ref={row} onWheel={() => complete('studio')} onPointerDown={() => complete('studio')}>
+      <div
+        className="rail" ref={row} data-cur="drag"
+        onPointerDown={e => { if (e.pointerType === 'mouse') drag.current = { x: e.clientX, left: row.current!.scrollLeft } }}
+        onPointerMove={e => { if (drag.current) row.current!.scrollLeft = drag.current.left - (e.clientX - drag.current.x) }}
+        onPointerUp={() => { drag.current = null }}
+        onPointerLeave={() => { drag.current = null }}
+      >
         {d.shots!.map((s, i) => <img key={s} src={s} alt={`${d.title} screen ${i + 1}`} loading="lazy" draggable={false} />)}
       </div>
-      <div className="strip-nav">
-        <button className="btn xs sec" onClick={() => nudge(-1)} aria-label="Previous screens">←</button>
-        <button className="btn xs sec" onClick={() => nudge(1)} aria-label="Next screens">→</button>
+      <div className="rail-nav">
+        <button className="pill" onClick={() => nudge(-1)} aria-label="Previous screens">←</button>
+        <button className="pill" onClick={() => nudge(1)} aria-label="Next screens">→</button>
       </div>
     </div>
   )
@@ -51,29 +62,26 @@ function Strip({ d }: { d: Design }) {
 
 export function Designs() {
   return (
-    <section id="designs" className="wrap" data-tip="designs">
-      <div className="head">
-        <Split text="Design studio." />
-        <span className="note-tag hand">apps I designed · tap to play</span>
-      </div>
-      <div className="designs">
-        {designs.map((d, i) => (
-          <motion.article key={d.id} className={`dcard is-${d.kind}`} style={hueVars(d)}
-            initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }}
-            transition={{ type: 'spring', stiffness: 220, damping: 24, delay: i * 0.05 }}>
-            <div className="dtext">
-              <div className="cat mono">{d.kind === 'live' ? 'interactive prototype' : d.kind === 'strip' ? 'store screens' : 'live product'}</div>
-              <h3>{d.title}. <em>{d.tagline}</em></h3>
-              <p>{d.body}</p>
-              <a className="go" href={d.href} target="_blank" rel="noopener" data-cur="open" onClick={() => complete('studio')}>
-                {d.kind === 'live' ? 'Open full screen' : d.cta} ↗
-              </a>
-            </div>
-            {d.kind === 'live' && <Live d={d} />}
-            {d.kind === 'shot' && <Window url={d.href}><img src={d.poster} alt={`${d.title} landing page`} loading="lazy" /></Window>}
-            {d.kind === 'strip' && <Strip d={d} />}
-          </motion.article>
-        ))}
+    <section className="designs" id="designs" data-theme="dark">
+      <div className="wrap">
+        <SectionHead label="Design studio" title="Apps I designed." note={<>Three products<br />one is playable in place</>} />
+        <div className="dlist">
+          {designs.map((d, i) => (
+            <article key={d.id} className={`drow is-${d.kind}`}>
+              <R className="drow-txt">
+                <span className="mono dim">{String(i + 1).padStart(2, '0')} · {kind[d.kind]}</span>
+                <h3>{d.title}. <em>{d.tagline}</em></h3>
+                <p className="dim">{d.body}</p>
+                <UBtn href={d.href} cur="open">{d.kind === 'live' ? 'Open full screen' : d.cta}</UBtn>
+              </R>
+              <div className="drow-media">
+                {d.kind === 'live' && <Live d={d} />}
+                {d.kind === 'shot' && <Window url={d.href}><img src={d.poster} alt={`${d.title} landing page`} loading="lazy" /></Window>}
+                {d.kind === 'strip' && <Strip d={d} />}
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   )

@@ -10,34 +10,39 @@ export type Hue = 'coral' | 'moss' | 'sky' | 'lav' | 'sun' | 'rose'
 
 export const scrambleWords = ['talks back', 'listens', 'cites sources', 'ships', 'works at 3am', 'pays rent']
 
+
+export const statement = "I'm Avichal, an engineer building AI products that have to work when a *real* *human* is on the other end."
+
 export const marquee = [
   'Voice agents', 'Multi-agent systems', 'Post-training', 'RL environments', 'LangGraph', 'MCP',
   'LiveKit', 'Next.js', 'Convex', 'PyTorch', 'On-device inference', 'Ships weekly',
 ]
 
-export type Sticker = { text: string; sub: string; hue: Hue; x: string; y: string; rot: number }
-export const stickers: Sticker[] = [
-  { text: '$3,000', sub: 'Agentverse champion', hue: 'sun', x: '50%', y: '5%', rot: 7 },
-  { text: '100K+★', sub: 'Orca · open source contributor', hue: 'rose', x: '57%', y: '21%', rot: -5 },
-  { text: '99%', sub: 'debug effort cut @ Expedia', hue: 'sky', x: '5%', y: '53%', rot: 4 },
-  { text: '2.5M+', sub: 'sensor rows · Siemens Energy', hue: 'moss', x: '21%', y: '72%', rot: -7 },
-  { text: '$18K+', sub: 'hackathon prizes, cumulative', hue: 'coral', x: '45%', y: '40%', rot: 6 },
+/* Aperture, the voice interviewer I built, asks. I answer. */
+export type QA = { q: string; a: string }
+export const interview: QA[] = [
+  {
+    q: 'You built me to interview people, so this is awkward. What do you actually do?',
+    a: 'I build AI products for the moment a real person is on the other end: <b>voice agents, multi-agent systems, eval environments and post-training.</b> I work the whole stack, from the LiveKit room down to the PyTorch loop.',
+  },
+  {
+    q: 'Everyone says “AI products”. What have you done that most people haven’t?',
+    a: 'I shipped a voice interviewer that knows when to <b>shut up</b>. I built <b>Guild</b>, a multiplayer canvas where people and local Codex and Claude workers build software together, with fencing tokens so a stale agent can’t overwrite a fresh one. And I fine-tuned Qwen with dendritic layers and moved GSM8K by 2.56 points.',
+  },
+  {
+    q: 'Real-world reps, or just hackathons?',
+    a: 'Both. At <b>Expedia</b> I shipped a debugging framework their Android engineers adopted, and it cut debugging effort by 99%. For <b>Siemens Energy</b> I turned 2.5M sensor rows into a 92% classifier. I’ve merged PRs into <b>Orca</b>, a remote browser runtime with 100K+ stars. I’ve also worked with <b>Agnikul Cosmos</b> and <b>DRDO</b>, and those projects stay off this page. And yes, two hackathon wins.',
+  },
+  {
+    q: 'Biggest failure?',
+    a: 'The first version of you interrupted people constantly. I had tuned for speed when I should have tuned for listening. I rewrote the turn detection twice before it felt polite. <b>Latency turned out to be a product decision.</b>',
+  },
+  {
+    q: 'Why should someone hire you?',
+    a: 'I show up: 3K+ commits. I deliver when it counts: first place and $3,000 at Fetch.ai’s agents league. And I stay on a problem until it works, end to end.',
+  },
 ]
-
-export type Msg = { who: 'ai' | 'me'; html: string }
-export const interview: Msg[] = [
-  { who: 'ai', html: "Hi Avichal. I'm Aperture. You built me to interview people. Awkward. What do you actually do?" },
-  { who: 'me', html: 'I build AI products that have to work when a real human is on the other end. <b>Voice agents, multi-agent systems, eval environments, post-training.</b> Full-stack: from the LiveKit room to the PyTorch loop.' },
-  { who: 'ai', html: 'Everyone says "AI products". What\'s the thing you\'ve done that most people haven\'t?' },
-  { who: 'me', html: 'Shipped a voice interviewer that knows when to <b>shut up</b>. Built <b>Guild</b>, a multiplayer canvas where humans and local Codex/Claude workers build software together, with fencing tokens so stale agents can\'t clobber each other. Fine-tuned Qwen with dendritic layers and actually moved GSM8K.' },
-  { who: 'ai', html: 'Real-world reps, or just hackathons?' },
-  { who: 'me', html: 'Both. <b>Expedia</b>: shipped a debugging framework their Android engineers adopted, cut debug effort 99%. <b>Siemens Energy</b>: 2.5M sensor rows → 92% classifier. <b>Orca</b> (100K+★): merged PRs into a remote browser runtime. Also worked with <b>Agnikul Cosmos</b> and <b>DRDO</b>. Those projects stay off this page. Plus 2 hackathon wins.' },
-  { who: 'ai', html: 'Biggest failure?' },
-  { who: 'me', html: 'First version of me, of you, interrupted people constantly. I optimised for speed, not for listening. Rewrote the turn detection twice. <b>Latency is a product decision.</b>' },
-  { who: 'ai', html: 'Why should someone hire you?' },
-  { who: 'me', html: "3K+ commits say I show up. $3,000 from Fetch.ai says I win when it counts. I ship end to end and I stay on the problem until it works." },
-  { who: 'ai', html: 'Verdict: <b class="hl">strong hire</b>. Also please fix my interruption bug.' },
-]
+export const verdict = { stamp: 'Strong hire', line: 'Also, please fix my interruption bug.' }
 
 export type PlayId = 'aperture' | 'cue' | 'guild' | 'foreach' | 'bifrost' | 'latchgrid' | 'suapp' | 'studydeck'
 export type Project = {
@@ -85,7 +90,7 @@ export const projects: Project[] = [
     id: 'latchgrid', num: '06', cat: 'Live product · Creator OS', title: 'LatchGrid.', tagline: 'A canvas that thinks with you.',
     body: 'Canvas-first workspace indexing 8+ content types (YouTube, PDFs, notes, voice memos, images…) into a persistent knowledge graph. Deep research across 5+ sources, multilingual chat, model routing, context-aware image gen, real-time node sync. Outputs land back on the canvas.',
     chips: ['Next.js', 'Convex', 'LangGraph', 'Real-time'], cta: 'Open latchgrid.in',
-    href: 'https://latchgrid.in', cur: 'live', hue: 'moss', size: 'big', play: 'latchgrid',
+    href: 'https://latchgrid.in', demo: 'https://youtu.be/nVjDcO01haY', cur: 'live', hue: 'moss', size: 'big', play: 'latchgrid',
   },
   {
     id: 'suapp', num: '07', cat: 'Campus super app · with SUTT', title: 'SU App.', tagline: 'All of campus in one app.',
@@ -176,87 +181,26 @@ export const skills = {
   Infra: ['Next.js', 'Convex', 'FastAPI', 'Node.js', 'PostgreSQL', 'SQLite', 'Docker', 'AWS', 'Vercel'],
 }
 
-/* ───────── game ───────── */
-
-export type QuestId =
-  | 'hello' | 'sticker' | 'stars' | 'interview' | 'demo1' | 'demo3'
-  | 'studio' | 'night' | 'secret' | 'shop' | 'resume' | 'hi'
-export type IconName =
-  | 'wave' | 'drag' | 'mic' | 'play' | 'bolt' | 'palette' | 'moon' | 'sun' | 'key'
-  | 'bag' | 'doc' | 'mail' | 'trophy' | 'check' | 'lock' | 'star' | 'close' | 'reset' | 'chest' | 'arrow'
-export type Quest = { id: QuestId; title: string; hint: string; xp: number; coins: number; icon: IconName; hue: Hue }
-export const quests: Quest[] = [
-  { id: 'hello', title: 'Say hi to Lory', hint: 'Tap the little astronaut.', xp: 10, coins: 5, icon: 'wave', hue: 'sky' },
-  { id: 'sticker', title: 'Rearrange the wall', hint: 'Drag a sticker in the hero.', xp: 10, coins: 5, icon: 'drag', hue: 'sun' },
-  { id: 'stars', title: 'Stargazer', hint: 'Catch the 3 stars hiding in the hero sky.', xp: 15, coins: 10, icon: 'star', hue: 'rose' },
-  { id: 'interview', title: 'Sit through the interview', hint: 'Watch Aperture grill Avichal.', xp: 20, coins: 10, icon: 'mic', hue: 'lav' },
-  { id: 'demo1', title: 'Press a button', hint: 'Play any project demo.', xp: 15, coins: 10, icon: 'play', hue: 'coral' },
-  { id: 'demo3', title: 'Power user', hint: 'Play 3 different project demos.', xp: 30, coins: 20, icon: 'bolt', hue: 'sun' },
-  { id: 'studio', title: 'Studio visit', hint: 'Open a design in the Design Studio.', xp: 15, coins: 10, icon: 'palette', hue: 'moss' },
-  { id: 'night', title: 'Night shift', hint: 'Switch the sky to night.', xp: 10, coins: 5, icon: 'moon', hue: 'lav' },
-  { id: 'secret', title: 'Secret handshake', hint: 'The logo likes being clicked. A lot.', xp: 25, coins: 15, icon: 'key', hue: 'coral' },
-  { id: 'shop', title: 'Treat Lory', hint: 'Buy something in the wardrobe.', xp: 10, coins: 5, icon: 'bag', hue: 'rose' },
-  { id: 'resume', title: 'Read the fine print', hint: 'Open the resume.', xp: 15, coins: 10, icon: 'doc', hue: 'sky' },
-  { id: 'hi', title: 'Say hi to Avichal', hint: 'Tap Say hi up top, or copy his email.', xp: 30, coins: 20, icon: 'mail', hue: 'moss' },
-]
-
-export const levels = [
-  { at: 0, name: 'Stowaway' },
-  { at: 20, name: 'Cadet' },
-  { at: 50, name: 'Pilot' },
-  { at: 90, name: 'Navigator' },
-  { at: 140, name: 'Commander' },
-  { at: 190, name: 'Captain' },
-]
-
-export type ItemId = 'shades' | 'scarf' | 'party' | 'cape' | 'star'
-export const shop: { id: ItemId; name: string; price: number; note: string }[] = [
-  { id: 'shades', name: 'Sunglasses', price: 15, note: 'Polaroid energy.' },
-  { id: 'scarf', name: 'Cozy scarf', price: 20, note: 'Space is cold.' },
-  { id: 'party', name: 'Party hat', price: 25, note: 'For shipping days.' },
-  { id: 'cape', name: 'Hero cape', price: 30, note: 'Saves prod, sometimes.' },
-  { id: 'star', name: 'Star antenna', price: 35, note: 'Better signal.' },
-]
-
-export const trophies: { n: string; l: string; hue: Hue }[] = [
-  { n: '$3,000', l: 'Agentverse champion', hue: 'sun' },
-  { n: '100K+★', l: 'repo I merge PRs into', hue: 'rose' },
-  { n: '$18K+', l: 'hackathon prizes', hue: 'coral' },
-  { n: '3K+', l: 'github commits', hue: 'moss' },
-  { n: '92%', l: 'favourite accuracy, twice', hue: 'sky' },
-  { n: 'DRDO', l: "worked with · can't say more", hue: 'lav' },
-]
-
-/* The three quests on the hero card. Finishing them unlocks the starter chest. */
-export const starter: { id: QuestId; title: string; hint: string }[] = [
-  { id: 'hello', title: 'Say hi', hint: 'tap Lory' },
-  { id: 'sticker', title: 'Drag a sticker', hint: 'any one' },
-  { id: 'stars', title: 'Catch 3 stars', hint: 'hiding in the sky' },
-]
-export const chestCoins = 25
-
-/* Lory's hero bubble: a hint for the next starter quest, then small talk once the chest is open. */
-export const loryHints = {
-  hello: "Hi! I'm Lory, Avichal's guide. Tap me to say hi.",
-  sticker: 'Nice to meet you! Now grab a sticker and drag it around.',
-  stars: (n: number) => `Three stars are hiding in this sky. ${n}/3 caught.`,
-  chest: 'You did it! Open your starter chest.',
-  next: 'Next up: play a project demo. Scroll down!',
+/* Headline numbers for the receipts section. */
+export const facts = {
+  prizes: { to: 18, prefix: '$', suffix: 'K+', note: 'Hackathon prizes, cumulative.' },
+  stars: { to: 100, suffix: 'K+', note: 'Stars on Orca, the open-source browser runtime I merge PRs into.' },
+  debug: { to: 99, suffix: '%', note: "Less debugging effort for Expedia's Android engineers after my X-Ray framework shipped." },
+  strip: [
+    { to: 2.5, decimals: 1, suffix: 'M+', note: 'sensor rows modelled · Siemens Energy' },
+    { to: 92, suffix: '%', note: 'classifier accuracy on 62 turbine rotors' },
+    { to: 3, suffix: 'K+', note: 'GitHub commits and counting' },
+    { to: 10, suffix: 'K+', note: 'downloads · BITS SU App' },
+  ],
 }
-export const loryChat = [
-  'Beep. That tickles.',
-  'I run on cold brew and gradient descent.',
-  'Avichal built me with zero slide decks.',
-  'Psst. The logo likes being clicked. A lot.',
-  'At night I can see the moon from here.',
-  'Every card below is playable. I checked.',
-]
 
-export const tips: Record<string, string> = {
-  chat: 'Aperture ran this interview. It interrupts way less now.',
-  work: 'Every card is playable. Go on, press things.',
-  designs: 'Tap a design to play with the real prototype.',
-  research: 'Lab notes. The Qwen one actually moved a benchmark.',
-  xp: 'Receipts. Jobs, labs and one classified room.',
-  contact: 'You made it! Say hi, he replies fast.',
-}
+export const clients = ['Expedia Group', 'Siemens Energy', 'Orca', 'Agnikul Cosmos', 'DRDO', 'Postman API Labs', 'Meerahi VR']
+
+export const nav = [
+  { label: 'Work', href: '#work' },
+  { label: 'Designs', href: '#designs' },
+  { label: 'Interview', href: '#chat' },
+  { label: 'Lab notes', href: '#research' },
+  { label: 'Experience', href: '#xp' },
+  { label: 'Contact', href: '#contact' },
+]

@@ -1,32 +1,33 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { useReducedMotion } from '../hooks'
+import { ease, useReducedMotion } from '../hooks'
 
-/* Cycles words with a quiet fade + slide. Every word sits hidden in the same grid cell, so the box is as wide as the widest one and layout never jumps. */
-export function WordSwap({ words, interval = 2600 }: { words: string[]; interval?: number }) {
+/* Cycles words through the headline's line mask: the old one leaves by the top while the next rises from
+   below, so the line is never empty. */
+export function WordSwap({ words, run = true, interval = 2600, onSwap }: { words: string[]; run?: boolean; interval?: number; onSwap?: () => void }) {
   const [i, setI] = useState(0)
   const reduce = useReducedMotion()
+  const swapped = useRef(onSwap)
+  swapped.current = onSwap
 
   useEffect(() => {
-    if (reduce) return
-    const id = setInterval(() => setI(n => (n + 1) % words.length), interval)
+    if (reduce || !run) return
+    const id = setInterval(() => { setI(n => (n + 1) % words.length); swapped.current?.() }, interval)
     return () => clearInterval(id)
-  }, [words.length, interval, reduce])
+  }, [words.length, interval, reduce, run])
 
   return (
-    <span className="scr">
-      {words.map(w => <span key={w} className="scr-ghost" aria-hidden>{w}</span>)}
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
+    <span className="swap">
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.em
           key={words[i]}
-          className="scr-word"
-          initial={reduce ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.28, ease: [0.2, 0.8, 0.2, 1] }}
+          initial={{ y: '112%' }}
+          animate={{ y: 0 }}
+          exit={{ y: '-112%' }}
+          transition={{ duration: 0.7, ease }}
         >
-          {words[i]}
-        </motion.span>
+          {words[i]}.
+        </motion.em>
       </AnimatePresence>
     </span>
   )

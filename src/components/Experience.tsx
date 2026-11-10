@@ -1,34 +1,40 @@
-import { motion } from 'motion/react'
-import { experience } from '../data'
-import { Split } from './Split'
+import { experience, skills } from '../data'
+import { Rule, R, SectionHead } from './ui'
 
 export function Experience() {
   return (
-    <section id="xp" className="wrap" data-tip="xp">
-      <div className="head">
-        <Split text="Receipts." />
-        <span className="note-tag hand">jobs, labs, and classified rooms</span>
-      </div>
-      <div className="xp">
-        {experience.map((x, i) => (
-          <motion.div
-            key={i}
-            className="xrow"
-            initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.3 }}
-            whileHover={{ x: 14 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 26 }}
-          >
-            <div className="yr mono">{x.yr}</div>
-            <div>
-              <h4>
-                {x.role}{' '}
-                {x.href ? <a href={x.href} target="_blank" rel="noopener" className="orglink"><span>{x.org} ↗</span></a> : <span>{x.org}</span>}
-              </h4>
-              <p>{x.body}</p>
-            </div>
-            <div className="loc mono">{x.loc}</div>
-          </motion.div>
-        ))}
+    <section className="xp" id="xp" data-theme="dark">
+      <div className="wrap">
+        <SectionHead label="Experience" title="Jobs, labs and one classified room." />
+        <div className="xp-list">
+          {experience.map((x, i) => (
+            <R key={i} className="xrow">
+              <span className="mono dim">{x.yr}</span>
+              <div className="xrow-role">
+                <h3>{x.role}</h3>
+                {x.href
+                  ? <a className="label dim" href={x.href} target="_blank" rel="noopener">{x.org} ↗</a>
+                  : <span className="label dim">{x.org}</span>}
+              </div>
+              <p className="dim">{x.body}</p>
+              <span className="mono dim xrow-loc">{x.loc}</span>
+            </R>
+          ))}
+        </div>
+
+        <div className="skills-rule"><Rule /></div>
+
+        <div className="skills">
+          <R as="span" className="label"><i className="sq" />Toolkit</R>
+          <div className="skills-grid">
+            {Object.entries(skills).map(([group, items], i) => (
+              <R key={group} delay={i * 0.08}>
+                <span className="mono dim">{group}</span>
+                <ul>{items.map(s => <li key={s}>{s}</li>)}</ul>
+              </R>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )

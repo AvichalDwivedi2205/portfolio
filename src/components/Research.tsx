@@ -1,38 +1,30 @@
-import { motion } from 'motion/react'
 import { research } from '../data'
-import { Split } from './Split'
+import { Arrow, R, SectionHead } from './ui'
 
-/* Compact list for research / ML / hackathon builds. Hover slides the row and lights the badge. */
 export function Research() {
   return (
-    <section id="research" className="wrap" data-tip="research">
-      <div className="head">
-        <Split text="Lab notes." />
-        <span className="note-tag hand">post-training · RL envs · on-device · multi-agent</span>
-      </div>
-      <div className="research">
-        {research.map((r, i) => {
-          const Tag = r.href ? motion.a : motion.div
-          return (
-            <Tag
-              key={r.title}
-              className="rrow"
-              href={r.href} target={r.href ? '_blank' : undefined} rel={r.href ? 'noopener' : undefined}
-              data-cur={r.href ? 'repo' : undefined}
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }}
-              whileHover={{ x: 10 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 26, delay: i * 0.04 }}
-            >
-              <div className="ridx mono">{String(i + 1).padStart(2, '0')}</div>
-              <div>
-                <div className="rtitle">{r.title} <span>{r.sub}</span></div>
-                <p>{r.body}</p>
-                <div className="chips">{r.stack.map(s => <span key={s} className="chip">{s}</span>)}</div>
-              </div>
-              {r.badge && <div className="rbadge">{r.badge}</div>}
-            </Tag>
-          )
-        })}
+    <section className="lab" id="research" data-theme="dark">
+      <div className="wrap">
+        <SectionHead label="Lab notes" title="Lab notes." note={<>Post-training · RL envs<br />on-device · multi-agent</>} />
+        <div className="lab-grid">
+          {research.map((r, i) => (
+            <R key={r.title} className="lab-cell" delay={(i % 2) * 0.1}>
+              <a href={r.href} target="_blank" rel="noopener" data-cur="repo">
+                <div className="lab-top">
+                  <span className="mono dim">{String(i + 1).padStart(2, '0')}</span>
+                  {r.badge && <span className="badge mono">{r.badge}</span>}
+                </div>
+                <h3>{r.title}</h3>
+                <span className="label dim">{r.sub}</span>
+                <p className="dim">{r.body}</p>
+                <div className="lab-bot">
+                  <ul className="tags">{r.stack.map(s => <li key={s}>{s}</li>)}</ul>
+                  <span className="lab-go" aria-hidden><Arrow diag /></span>
+                </div>
+              </a>
+            </R>
+          ))}
+        </div>
       </div>
     </section>
   )

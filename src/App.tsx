@@ -1,47 +1,56 @@
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { MotionConfig } from 'motion/react'
+import { initScroll } from './scroll'
+import { Seam, Ui } from './components/ui'
+import { Preloader } from './components/Preloader'
 import { Cursor } from './components/Cursor'
-import { Progress } from './components/Progress'
-import { Nav } from './components/Nav'
+import { Header } from './components/Header'
 import { Hero } from './components/Hero'
-import { Marquee } from './components/Marquee'
-import { Interview } from './components/Interview'
+import { About } from './components/About'
+import { Signal } from './components/Signal'
+import { Facts } from './components/Facts'
 import { Work } from './components/Work'
 import { Designs } from './components/Designs'
+import { Interview } from './components/Interview'
 import { Research } from './components/Research'
 import { Experience } from './components/Experience'
-import { Awards } from './components/Awards'
-import { Skills } from './components/Skills'
-import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
-import { Confetti } from './components/Confetti'
-import { BuddyDock } from './components/BuddyDock'
-import { QuestBoard } from './components/QuestBoard'
-import { Toasts } from './components/Toasts'
-import { SayHiSheet } from './components/SayHi'
+import { TalkPanel } from './components/TalkPanel'
 
 export default function App() {
+  const [loaded, setLoaded] = useState(false)
+  const [intro, setIntro] = useState(true)
+  const [talk, setTalk] = useState(false)
+
+  useEffect(() => initScroll(), [])
+
+  const closeTalk = useCallback(() => setTalk(false), [])
+  const ui = useMemo(() => ({ loaded, openTalk: () => setTalk(true) }), [loaded])
+
   return (
-    <>
-      <Progress />
-      <Cursor />
-      <Confetti />
-      <Nav />
-      <main id="top">
-        <div className="wrap"><Hero /></div>
-        <Marquee />
-        <Interview />
-        <Work />
-        <Designs />
-        <Research />
-        <Experience />
-        <Awards />
-        <Skills />
-        <Contact />
-      </main>
-      <Footer />
-      <BuddyDock />
-      <QuestBoard />
-      <SayHiSheet />
-      <Toasts />
-    </>
+    <MotionConfig reducedMotion="user">
+      <Ui.Provider value={ui}>
+        {intro && <Preloader onReveal={() => setLoaded(true)} onDone={() => setIntro(false)} />}
+        <Cursor />
+        <Header />
+        <main>
+          <Hero />
+          <About />
+          <Signal />
+          <Facts />
+          <Seam to="dark" />
+          <Work />
+          <Designs />
+          <Seam to="light" />
+          <Interview />
+          <Seam to="dark" />
+          <Research />
+          <Experience />
+        </main>
+        <Footer />
+        <TalkPanel open={talk} onClose={closeTalk} />
+        <div className="grain" aria-hidden />
+      </Ui.Provider>
+    </MotionConfig>
   )
 }

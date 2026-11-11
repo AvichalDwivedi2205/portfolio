@@ -1,7 +1,8 @@
-import { designs, experience, interview, links, projects, research, scrambleWords } from '../data'
+import { links, scrambleWords } from '../data'
+import { HeroPortrait } from './HeroPortrait'
 import { WaveField } from './WaveField'
 import { WordSwap } from './WordSwap'
-import { Roll, UBtn, useUi } from './ui'
+import { UBtn, useUi } from './ui'
 
 const Pulse = () => (
   <svg className="pulse-ic" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" aria-hidden>
@@ -10,15 +11,6 @@ const Pulse = () => (
     <circle cx="11" cy="11" r="10" opacity=".45" />
   </svg>
 )
-
-/* A table of contents for the page, with how much is behind each door. */
-const index = [
-  { label: 'Work', href: '#work', n: projects.length, unit: 'products' },
-  { label: 'Designs', href: '#designs', n: designs.length, unit: 'apps' },
-  { label: 'Interview', href: '#chat', n: interview.length, unit: 'questions' },
-  { label: 'Lab notes', href: '#research', n: research.length, unit: 'experiments' },
-  { label: 'Experience', href: '#xp', n: experience.length, unit: 'roles' },
-]
 
 /* Each new word in the headline is "spoken": the wave field's voice line answers with a burst. */
 const say = () => dispatchEvent(new Event('signal:say'))
@@ -42,20 +34,7 @@ export function Hero() {
             </div>
           </div>
 
-          <nav className="hero-index" aria-label="On this page">
-            <span className="label dim">On this page</span>
-            <ul>
-              {index.map((s, i) => (
-                <li key={s.href}>
-                  <a href={s.href}>
-                    <span className="mono dim">{String(i + 1).padStart(2, '0')}</span>
-                    <Roll text={s.label} />
-                    <span className="mono dim">{String(s.n).padStart(2, '0')} {s.unit}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <HeroPortrait />
         </div>
 
         <div className="hero-bot">

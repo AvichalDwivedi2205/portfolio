@@ -39,7 +39,7 @@ export const interview: QA[] = [
   },
   {
     q: 'Why should someone hire you?',
-    a: 'I show up: 3K+ commits. I deliver when it counts: first place and $3,000 at Fetch.ai’s agents league. And I stay on a problem until it works, end to end.',
+    a: 'I show up: 4K+ commits. I deliver when it counts: first place and $3,000 at Fetch.ai’s agents league. And I stay on a problem until it works, end to end.',
   },
 ]
 export const verdict = { stamp: 'Strong hire', line: 'Also, please fix my interruption bug.' }
@@ -189,7 +189,7 @@ export const facts = {
   strip: [
     { to: 2.5, decimals: 1, suffix: 'M+', note: 'sensor rows modelled · Siemens Energy' },
     { to: 92, suffix: '%', note: 'classifier accuracy on 62 turbine rotors' },
-    { to: 3, suffix: 'K+', note: 'GitHub commits and counting' },
+    { to: 4, suffix: 'K+', note: 'GitHub commits and counting' },
     { to: 10, suffix: 'K+', note: 'downloads · BITS SU App' },
   ],
 }

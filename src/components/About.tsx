@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform, type MotionValue } from 'motion/react'
 import { links, statement } from '../data'
-import { Corners, R, Rule, UBtn } from './ui'
+import { R, Rule, UBtn } from './ui'
 
 function FillWord({ p, range, children }: { p: MotionValue<number>; range: [number, number]; children: string }) {
   const opacity = useTransform(p, range, [0.12, 1])
@@ -33,10 +33,6 @@ const spec = [
 const focus = ['Voice agents with manners', 'Multi-agent workspaces', 'Post-training and evals']
 
 export function About() {
-  const shot = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: shot, offset: ['start end', 'end start'] })
-  const y = useTransform(scrollYProgress, [0, 1], ['-9%', '9%'])
-
   return (
     <section className="about" id="about" data-theme="dark">
       <div className="wrap">
@@ -55,20 +51,10 @@ export function About() {
             </dl>
           </R>
 
-          <R className="about-shot" delay={0.1}>
-            <div className="frame" ref={shot}>
-              <Corners />
-              <div className="frame-img">
-                <motion.img src="/portrait.jpg" alt="Avichal Dwivedi" loading="lazy" style={{ y }} />
-              </div>
-            </div>
-            <span className="mono dim about-cap"><span>Avichal, 2026</span><span>Pilani, IN</span></span>
-          </R>
-
-          <R className="about-copy" delay={0.2}>
+          <R className="about-copy" delay={0.1}>
             <div className="about-say">
               <p>Shipped at Expedia, Siemens Energy, Agnikul Cosmos, DRDO and a 100K+★ open-source runtime, plus six products of my own.</p>
-              <p className="dim">I ship end to end and I stay on the problem until it works. 3K+ commits say I show up.</p>
+              <p className="dim">I ship end to end and I stay on the problem until it works. 4K+ commits say I show up.</p>
               <UBtn href={links.resume}>Read the résumé</UBtn>
             </div>
             <div className="focus">

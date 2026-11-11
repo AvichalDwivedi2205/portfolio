@@ -3,3 +3,6 @@ dist
 .vercel
 .DS_Store
 *.local
+
+# Private likeness references are never part of the published site.
+references/

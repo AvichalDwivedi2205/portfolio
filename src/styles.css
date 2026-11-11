@@ -219,21 +219,21 @@ h1 em,h2 em,h3 em{font-family:var(--serif);font-style:italic;font-weight:400;let
 .menu-foot>.label{display:flex;justify-content:space-between;gap:1rem}
 
 /* ───────── hero ───────── */
-.hero{position:relative;display:flex;min-height:100svh;overflow:hidden;user-select:none;-webkit-user-select:none}
+.hero{overflow-anchor:none;position:relative;display:flex;min-height:100svh;overflow:hidden;user-select:none;-webkit-user-select:none}
 .wave{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.6s ease .15s;-webkit-mask-image:linear-gradient(180deg,transparent 22%,#000 64%,#000 86%,transparent);mask-image:linear-gradient(180deg,transparent 22%,#000 64%,#000 86%,transparent)}
 .hero.in .wave{opacity:1}
-.hero-in{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:space-between;gap:3rem;padding-top:clamp(6.5rem,15vh,10rem);padding-bottom:clamp(1.5rem,4.5vh,3.25rem)}
-.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:2.5rem}
-.hero-main{min-width:0}
-.hero-kicker,.hero-cta,.hero-index,.hero-bot>*{opacity:0;transform:translateY(1.25rem);transition:opacity 1.2s var(--ease),transform 1.3s var(--ease)}
-.hero.in :is(.hero-kicker,.hero-cta,.hero-index,.hero-bot>*){opacity:1;transform:none}
+.hero-in{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:space-between;gap:2rem;padding-top:clamp(6.5rem,13vh,9rem);padding-bottom:clamp(1.5rem,4.5vh,3.25rem)}
+.hero-top{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);align-items:center;gap:clamp(1.5rem,3vw,3rem)}
+.hero-main{min-width:0;padding-bottom:2rem}
+.hero-kicker,.hero-cta,.hero-portrait,.hero-bot>*{opacity:0;transform:translateY(1.25rem);transition:opacity 1.2s var(--ease),transform 1.3s var(--ease)}
+.hero.in :is(.hero-kicker,.hero-cta,.hero-portrait,.hero-bot>*){opacity:1;transform:none}
 .hero.in .hero-kicker{transition-delay:.35s}
-.hero.in .hero-index{transition-delay:.6s}
+.hero.in .hero-portrait{transition-delay:.6s}
 .hero.in .hero-cta{transition-delay:.75s}
 .hero.in .hero-bot>*{transition-delay:.95s}
 .hero.in .hero-bot>*:nth-child(2){transition-delay:1.05s}
 .hero.in .hero-bot>*:nth-child(3){transition-delay:1.15s}
-.hero h1{font-size:clamp(2.85rem,min(12.4vw,20.5vh),13.5rem);line-height:.9;letter-spacing:-.062em;margin:clamp(1rem,2.2vw,1.75rem) 0 clamp(2rem,3.6vw,3.25rem) -.045em}
+.hero h1{font-size:clamp(2.85rem,min(9.4vw,17vh),10.5rem);line-height:.9;letter-spacing:-.062em;margin:clamp(1rem,2.2vw,1.75rem) 0 clamp(2rem,3.6vw,3.25rem) -.045em}
 /* each line is its own mask; the padding leaves room for the italic's descenders and overhang */
 .ln{display:block;overflow:hidden;padding:.06em .16em .34em .12em;margin:-.06em -.16em -.34em -.12em}
 .ln>span{display:block;transform:translateY(130%);transition:transform 1.5s var(--ease) .3s}
@@ -244,14 +244,60 @@ h1 em,h2 em,h3 em{font-family:var(--serif);font-style:italic;font-weight:400;let
 .swap em{display:inline-block;vertical-align:top;padding-right:.1em;letter-spacing:-.035em}
 .hero-cta{display:flex;flex-wrap:wrap;gap:1.5rem}
 
-.hero-index{flex:none;width:min(100%,19.5rem);padding-top:.1rem;user-select:auto}
-.hero-index ul{margin-top:.95rem;border-bottom:1px solid var(--line)}
-.hero-index a{display:grid;grid-template-columns:1.9rem 1fr auto;align-items:baseline;padding:.74rem 0;border-top:1px solid var(--line);font:400 1.12rem/1 var(--disp);letter-spacing:-.04em;transition:padding .5s var(--ease),opacity .4s}
-.hero-index a .mono{font-size:.6rem}
-@media (hover:hover){
-  .hero-index ul:hover a:not(:hover){opacity:.45}
-  .hero-index a:hover{padding-left:.5rem}
-}
+/* The original sculptural image belongs to the existing signal field. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.hero-portrait{position:relative;min-width:0;width:100%;max-width:34rem;justify-self:center}
+.portrait-scroll{transform-origin:50% 45%}
+.portrait-stage{position:relative;display:block;width:100%;isolation:isolate;height:clamp(22rem,55vh,38rem);perspective:1100px;cursor:pointer;touch-action:pan-y;--portrait-lift:-11px;--portrait-rock:1deg}
+.portrait-stage::before{content:"";position:absolute;inset:12% 4% 2%;border-radius:50%;background:radial-gradient(ellipse,rgba(255,106,61,.07),transparent 68%);pointer-events:none;transition:opacity .4s,transform .5s}
+.portrait-orbit{position:absolute;z-index:-1;inset:16% 0 7%;border:1px solid rgba(216,216,216,.13);border-radius:50%;transform:rotate(-24deg) scaleX(.92);pointer-events:none;transition:border-color .35s}
+.portrait-orbit i{position:absolute;inset:-1px;border-radius:50%;animation:portrait-orbit 14s linear infinite}
+.portrait-orbit i::after{content:"";position:absolute;top:50%;left:-2px;width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px rgba(255,106,61,.4)}
+.portrait-orbit-secondary{inset:24% 2% 4%;transform:rotate(49deg) scaleX(.72);border-color:rgba(216,216,216,.065)}
+.portrait-orbit-secondary i{animation-duration:19s;animation-direction:reverse}
+.portrait-orbit-secondary i::after{width:3px;height:3px;background:var(--fg);box-shadow:none}
+.portrait-entrance{display:block;height:100%;transform:translate3d(36px,50px,-120px) rotateY(-19deg) rotateZ(4deg) scale(.83);opacity:0;transition:transform 1.9s var(--ease) .55s,opacity 1.5s var(--ease) .55s}
+.hero.in .portrait-entrance{transform:none;opacity:1}
+.portrait-art{display:block;height:100%;transform:translateX(var(--portrait-shift,0px)) rotateX(var(--portrait-x,0deg)) rotateY(var(--portrait-y,0deg));transform-origin:50% 60%;transition:transform .35s var(--ease);-webkit-mask-image:linear-gradient(#000 88%,transparent);mask-image:linear-gradient(#000 88%,transparent)}
+.portrait-response{display:block;height:100%;transform-origin:50% 65%}
+.portrait-float{position:relative;display:block;height:100%;transform-origin:50% 65%;animation:portrait-float 6.5s ease-in-out infinite}
+.portrait-art img{display:block;height:100%;width:100%;object-fit:contain;object-position:center;transition:filter .35s;pointer-events:none}
+.portrait-light{position:absolute;inset:0;overflow:hidden;pointer-events:none;background:radial-gradient(ellipse at var(--light-x,35%) var(--light-y,25%),rgba(255,210,180,.2),transparent 46%);-webkit-mask:url('/portraits/avichal-sculpture.webp') center/contain no-repeat;mask:url('/portraits/avichal-sculpture.webp') center/contain no-repeat;mix-blend-mode:screen;opacity:.55;transition:opacity .3s}
+.portrait-stage:hover .portrait-light{opacity:1}
+.portrait-light::after{content:"";position:absolute;inset:-20% -100%;background:linear-gradient(115deg,transparent 44%,rgba(255,255,255,.18) 49%,rgba(255,190,160,.08) 52%,transparent 57%);animation:portrait-light 8s var(--ease) infinite}
+.portrait-shock{position:absolute;inset:16% 10%;border:1px solid var(--accent);border-radius:50%;pointer-events:none;animation:portrait-shock 1.3s ease-out both}
+.is-energized .portrait-stage::before{opacity:1;transform:scale(1.16);background:radial-gradient(ellipse,rgba(255,106,61,.24),transparent 72%)}
+.is-energized .portrait-orbit{border-color:rgba(255,106,61,.6)}
+.is-energized .portrait-art img{filter:brightness(1.2) drop-shadow(0 0 14px rgba(255,106,61,.2))}
+.is-energized .portrait-light{opacity:1}
+.portrait-caption{position:relative;display:flex;align-items:center;justify-content:center;gap:.6rem;margin-top:.35rem;color:var(--dim);font-size:.58rem;letter-spacing:.015em}
+.portrait-caption>span{display:flex;align-items:center;gap:.4rem}
+.portrait-caption .sq{margin:0;width:4px;height:4px}
+.portrait-toggle{display:grid;place-items:center;flex:none;width:2.75rem;height:2.75rem;border:1px solid var(--line);border-radius:50%;color:var(--dim);transition:color .2s,border-color .2s;cursor:pointer}
+.portrait-toggle:hover{color:var(--fg);border-color:var(--dim)}
+.portrait-hint{text-align:center;font-size:.54rem;color:var(--dim);margin:.2rem 0 .6rem}
+.portrait-actions{display:flex;justify-content:center;gap:.55rem;font-size:.59rem}
+.portrait-actions button{background:rgba(8,8,8,.84);min-height:2.75rem;padding:0 .85rem;border:1px solid var(--line);border-radius:3px;color:var(--dim);cursor:pointer;display:flex;gap:.5rem;align-items:center;justify-content:center;transition:color .2s,border-color .2s}
+.portrait-actions button:hover,.portrait-actions button[aria-expanded="true"]{color:var(--fg);border-color:var(--accent)}
+.hero-portrait :is(button,a):focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.portrait-stage:focus-visible{outline-offset:0!important;border-radius:45% 45% 10% 10%}
+.portrait-paths{display:grid;grid-template-columns:1fr;gap:.35rem;max-width:24rem;margin:.8rem auto 0}
+.portrait-paths[hidden]{display:none}
+.portrait-paths a{position:relative;display:grid;grid-template-columns:1fr 1.1fr auto;align-items:center;gap:.7rem;min-height:3rem;padding:.65rem .8rem;border:1px solid var(--line);background:rgba(8,8,8,.8);border-radius:3px;transition:border-color .2s}
+.portrait-paths a:hover{border-color:var(--accent)}
+.portrait-paths .mono{font-size:.49rem;color:var(--dim);text-transform:uppercase}
+.portrait-paths strong{font-size:.73rem;font-weight:400}
+.portrait-paths a>span:last-child{color:var(--accent)}
+.hero-portrait :is(.portrait-float,.portrait-orbit i),.hero-portrait .portrait-light::after{animation-play-state:paused}
+.hero-portrait.is-running :is(.portrait-float,.portrait-orbit i),.hero-portrait.is-running .portrait-light::after{animation-play-state:running}
+.hero-portrait.is-still :is(.portrait-art,.portrait-float,.portrait-scroll,.portrait-response,.portrait-entrance){transform:none!important;animation:none!important}
+.hero-portrait.is-still .portrait-entrance{opacity:1;transition:none}
+.hero-portrait.is-still .portrait-light::after{display:none}
+.hero-portrait.is-still :is(.portrait-art img,.portrait-light,.portrait-stage::before,.portrait-orbit){transition:none}
+@keyframes portrait-float{0%,100%{transform:translate3d(0,0,0) rotateZ(calc(var(--portrait-rock)*-1))}50%{transform:translate3d(0,var(--portrait-lift),0) rotateZ(var(--portrait-rock))}}
+@keyframes portrait-orbit{to{transform:rotate(360deg)}}
+@keyframes portrait-light{0%,12%{transform:translateX(-35%);opacity:0}18%{opacity:1}48%,100%{transform:translateX(35%);opacity:0}}
+@keyframes portrait-shock{0%{transform:scale(.7);opacity:.7}100%{transform:scale(1.3);opacity:0}}
 
 .hero-bot{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--gap);align-items:end}
 .hero-scroll{display:inline-flex;align-items:center;gap:.75rem;justify-self:start;color:var(--dim)}
@@ -272,22 +318,16 @@ h1 em,h2 em,h3 em{font-family:var(--serif);font-style:italic;font-weight:400;let
 .about-top .label{grid-column:1/2;padding-top:.9em}
 .fill{grid-column:2/-1;font-size:clamp(2.3rem,6vw,5.75rem);line-height:.96}
 .about-rule{margin:clamp(3.5rem,7vw,6.25rem) 0 clamp(2.5rem,4.5vw,4rem);padding-left:calc((100% - 11*var(--gap))/12 + var(--gap))}
-/* three columns of equal height: the outer two pin their lists to the foot of the portrait */
+/* One portrait in the hero; About is a balanced two-column editorial layout. */
 .about-meta,.about-copy{display:flex;flex-direction:column;justify-content:space-between;gap:2.5rem;padding-bottom:1.85rem}
-.about-meta{grid-column:2/5}
-.about-note{max-width:15rem;line-height:1.12}
+.about-meta{grid-column:2/6}
+.about-note{max-width:20rem;line-height:1.2}
 .spec div{display:grid;grid-template-columns:5.2rem 1fr;gap:.75rem;align-items:baseline;padding:.8rem 0;border-top:1px solid var(--c-line)}
 .spec div:last-child,.focus li:last-child{border-bottom:1px solid var(--c-line)}
 .spec dd{font:400 1.05rem/1.15 var(--disp);letter-spacing:-.035em}
-.about-shot{grid-column:5/9;display:flex;flex-direction:column;gap:.9rem}
-.about-cap{display:flex;justify-content:space-between;gap:1rem}
-.frame{position:relative;border:1px solid var(--c-line);--o:-1px}
-.frame-img{aspect-ratio:4/5;overflow:hidden}
-.frame-img img{width:100%;height:118%;margin-top:-9%;object-fit:cover;object-position:50% 18%;filter:grayscale(1) contrast(1.08) brightness(.92);transition:filter .9s var(--ease)}
-.frame:hover img{filter:none}
-.about-copy{grid-column:10/-1}
+.about-copy{grid-column:7/-1}
 .about-say{display:flex;flex-direction:column;align-items:flex-start;gap:1.1rem}
-.about-say p{font-size:1.1rem;line-height:1.36}
+.about-say p{max-width:36rem;font-size:clamp(1.1rem,1.65vw,1.5rem);line-height:1.36}
 .about-say .ubtn{margin-top:1.25rem}
 .focus ol{margin-top:.9rem}
 .focus li{display:flex;align-items:baseline;gap:1rem;padding:.8rem 0;border-top:1px solid var(--c-line);font:400 1.2rem/1.1 var(--disp);letter-spacing:-.04em}
@@ -663,10 +703,12 @@ h1 em,h2 em,h3 em{font-family:var(--serif);font-style:italic;font-weight:400;let
   .about-top .label{grid-column:1/-1;padding:0}
   .fill{grid-column:1/-1}
   .about-rule,.sig-top .label{padding-left:0}
-  .hero-index{display:none}
-  .about-meta{grid-column:1/-1;padding-bottom:0}
-  .about-shot{grid-column:1/6}
-  .about-copy{grid-column:6/-1}
+  .hero-top{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:1rem}
+  .hero h1{font-size:clamp(3.6rem,9.6vw,6rem)}
+  .portrait-stage{height:clamp(21rem,42vw,28rem)}
+  .hero-cta{gap:.75rem 1.5rem}
+  .about-meta{grid-column:1/6;padding-bottom:0}
+  .about-copy{grid-column:7/-1}
   .qa-n{grid-column:1/-1;padding:0}
   .qa-q{grid-column:1/7}
   .qa-a{grid-column:7/-1}
@@ -687,14 +729,25 @@ h1 em,h2 em,h3 em{font-family:var(--serif);font-style:italic;font-weight:400;let
   .shead{margin-bottom:2.5rem}
   .shead h2,.shead-note{grid-column:1/-1}
   .shead-note{justify-self:start;text-align:left;padding:0}
+  .hero-in{padding-top:6.5rem;gap:1.75rem}
+  .hero-top{grid-template-columns:1fr;gap:1.75rem}
+  .hero-main{padding:0}
   .hero h1{font-size:clamp(3rem,15.6vw,4.8rem)}
+  .hero-portrait{max-width:23rem}
+  .portrait-stage{height:clamp(17rem,76vw,21rem);--portrait-lift:-9px;--portrait-rock:1deg}
+  .portrait-caption{margin-top:.4rem}
+  .portrait-toggle{width:2.75rem;height:2.75rem}
+  .portrait-light{-webkit-mask-image:url('/portraits/avichal-sculpture-small.webp');mask-image:url('/portraits/avichal-sculpture-small.webp')}
+  .portrait-hint{font-size:.5rem}
+  .portrait-paths{max-width:21rem}
   .hero-bot{grid-template-columns:1fr}
   .hero-scroll,.hero-hint{display:none}
   .hero-side{justify-self:stretch;width:100%}
   .hero-cta{flex-direction:column;gap:.6rem}
   .ubtn{min-width:0;width:100%}
   .wk-links .ubtn,.ft-cta .ubtn,.hero-cta .ubtn{max-width:22rem}
-  .about-shot,.about-copy{grid-column:1/-1}
+  .about-meta,.about-copy{grid-column:1/-1}
+  .about-bot{row-gap:3rem}
   .about-copy{padding-bottom:0}
   .cards{display:flex;max-width:none;margin-inline:calc(var(--pad)*-1);padding-inline:var(--pad);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;perspective:none}
   .cards::-webkit-scrollbar{display:none}
@@ -726,4 +779,7 @@ h1 em,h2 em,h3 em{font-family:var(--serif);font-style:italic;font-weight:400;let
   .sig-pin{position:static}
   .crest{display:none}
   .facts{margin-top:0}
+  .portrait-art,.portrait-float,.portrait-scroll,.portrait-response,.portrait-entrance{transform:none!important}
+  .portrait-light::after,.portrait-shock,.portrait-toggle{display:none}
+  .hero-portrait .portrait-orbit i{animation:none}
 }
